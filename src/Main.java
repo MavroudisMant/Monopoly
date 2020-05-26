@@ -39,6 +39,7 @@ public class Main {
 		//panel.main(players);
 		//ControlPanel.main(players);
         ControlPanel panel = new ControlPanel(players);
+        //panel.loadGame();
 	}
 
 }

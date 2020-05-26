@@ -8,8 +8,16 @@
  *
  * @author mmant
  */
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 public class ControlPanel extends javax.swing.JFrame {
@@ -73,6 +81,9 @@ public class ControlPanel extends javax.swing.JFrame {
     	die2.setText(Integer.toString(secondDie));
     	if(firstDie == secondDie)
     		playAgain = true;
+        else
+            playAgain = false;
+        players.get(currentPlayerIndex).movePlayer(firstDie+secondDie, true);//walks normal. So he has to get paid if he passes the start
     	return firstDie+secondDie;
     }
 
@@ -92,10 +103,10 @@ public class ControlPanel extends javax.swing.JFrame {
     	}*/
     }
 
-    public void updateBoard(int moveFor) { //This method is created for the GetOutOfJail class can use it
-    	BoardBlock block = board.updateBoard(players.get(currentPlayerIndex), moveFor);
-		executeBlockAction(block);
-    }
+//    public void updateBoard(int moveFor) { //This method is created for the GetOutOfJail class can use it
+//    	BoardBlock block = board.updateBoard(players.get(currentPlayerIndex), moveFor);
+//		executeBlockAction(block);
+//    }
     
     public void executeBlockAction(BoardBlock block) {
     	currCardOptions.setEnabled(true);
@@ -103,10 +114,7 @@ public class ControlPanel extends javax.swing.JFrame {
     }
     
     public void initializeBoard() {
-    	for(Player p: players)
-    	{
-    		board.initializeBoard(p);
-    	}
+    	board.initializeBoard(players);
     }
     
     public boolean isPlayAgain() {
@@ -115,7 +123,24 @@ public class ControlPanel extends javax.swing.JFrame {
 
     public void setPlayAgain(boolean playAgain) {
 	this.playAgain = playAgain;
-    }    
+    } 
+    
+    public void loadGame(){
+        try {
+            FileInputStream fins = new FileInputStream("file.ser");
+            ObjectInputStream dins = new ObjectInputStream(fins);
+            this.players = (ArrayList<Player>) dins.readObject();
+            this.board.dispose();
+            this.board = new Board((BoardBlock[]) dins.readObject());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,6 +164,12 @@ public class ControlPanel extends javax.swing.JFrame {
         forfeit = new javax.swing.JButton();
         endRound = new javax.swing.JButton();
         endGame = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        saveGame = new javax.swing.JMenuItem();
+        newGame = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        getManual = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,8 +285,37 @@ public class ControlPanel extends javax.swing.JFrame {
                     .addComponent(forfeit)
                     .addComponent(endRound)
                     .addComponent(endGame))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
+
+        fileMenu.setText("File");
+
+        saveGame.setText("Save Game");
+        saveGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveGameActionPerformed(evt);
+            }
+        });
+        fileMenu.add(saveGame);
+
+        newGame.setText("New Game");
+        newGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+        fileMenu.add(newGame);
+
+        jMenuBar1.add(fileMenu);
+
+        helpMenu.setText("Help");
+
+        getManual.setText("Manual");
+        helpMenu.add(getManual);
+
+        jMenuBar1.add(helpMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -273,15 +333,12 @@ public class ControlPanel extends javax.swing.JFrame {
 
     private void rollDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollDiceActionPerformed
         // TODO add your handling code here:
-	int moveFor = rollDiceAction();
-	updateBoard(moveFor);
+//	int moveFor = rollDiceAction();
+//	updateBoard(moveFor);
+        rollDiceAction();
 	if(!playAgain) {
 	rollDice.setEnabled(false); //if playAgain==true you can roll again
 	endRound.setEnabled(true); //if playAgain==false you can finish your round
-	}
-	else if(playAgain)
-	{
-	playAgain = false;
 	}
     }//GEN-LAST:event_rollDiceActionPerformed
 
@@ -315,6 +372,32 @@ public class ControlPanel extends javax.swing.JFrame {
         //Calls the get Winner Class
     }//GEN-LAST:event_endGameActionPerformed
 
+    private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveGameActionPerformed
+        try {
+            // TODO add your handling code here:
+            FileOutputStream outFile = new FileOutputStream("file.ser");
+            ObjectOutputStream douts = new ObjectOutputStream(outFile);
+            douts.writeObject(players);
+            douts.writeObject(board.getAllTheBlocks());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_saveGameActionPerformed
+
+    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
+        // TODO add your handling code here:
+        this.board.dispose();
+        this.board = new Board();
+        ArrayList<Player> newPlayers = new ArrayList<>();
+        for(Player p: players){
+           newPlayers.add(new Player(p.getName(), 1500));
+        }
+        this.players = newPlayers;
+        this.initializeBoard();
+    }//GEN-LAST:event_newGameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton currCardOptions;
@@ -323,12 +406,18 @@ public class ControlPanel extends javax.swing.JFrame {
     private javax.swing.JLabel die2;
     private javax.swing.JButton endGame;
     private javax.swing.JButton endRound;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JButton forfeit;
+    private javax.swing.JMenuItem getManual;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton manageCards;
+    private javax.swing.JMenuItem newGame;
     private javax.swing.JList<String> playerCards;
     private javax.swing.JLabel playerMoney;
     private javax.swing.JButton rollDice;
+    private javax.swing.JMenuItem saveGame;
     // End of variables declaration//GEN-END:variables
 }

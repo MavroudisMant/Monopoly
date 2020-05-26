@@ -1,9 +1,10 @@
 import java.awt.BorderLayout;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class BoardBlock {
+public class BoardBlock implements Serializable {
 	 private static int TOTALBLOCKS = 0;
 	 private int position;
 	 private JLabel picture;

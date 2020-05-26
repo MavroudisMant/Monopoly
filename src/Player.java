@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Player {
+public class Player implements Serializable{
 	private String name;
 	private int money;
 	private ArrayList<String> cards; 
@@ -12,6 +13,7 @@ public class Player {
 	private JLabel pawn;
 	private boolean inJail;
 	private int timeInJail;
+	private Board board;
 
 	
 	public Player(String name, int money) {
@@ -36,7 +38,7 @@ public class Player {
 
 	public void goToJail() {
 		this.inJail = true;
-		movePlayerToBlock(10);
+		movePlayerToBlock(10, false);
 		
 	}
 	
@@ -84,16 +86,25 @@ public class Player {
 	}
 
 	
-	public void movePlayer(int dice) {
+	public void movePlayer(int dice, boolean getPaid) {
 		int posbefore = position;
 		position = (position + dice) % BoardBlock.getTotalBlocks();
-		if(posbefore > position) {   //auto shmainei oti perase apo thn afaithria
+		this.board.updateBoard(this, posbefore, position);
+		if(posbefore > position && getPaid) {   //auto shmainei oti perase apo thn afaithria
 			this.getPaid(200);
 		}
 	}
 	
-	public void movePlayerToBlock(int position) {
-		this.position = position;
+	public void movePlayerToBlock(int position, boolean getPaid) {
+		int moveFor;
+		if(position > this.getPosition()) {
+			moveFor = position - this.getPosition();
+		}
+		else {
+			moveFor = BoardBlock.getTotalBlocks() - this.getPosition() + position; //This is done in case the player passes the start
+			//he can get paid if getPaid is true
+		}
+		this.movePlayer(moveFor, getPaid);
 	}
 
 	public int getPosition() {
@@ -104,7 +115,9 @@ public class Player {
 		return pawn;
 	}
 
-	
+	public void setBoard(Board board) {
+		this.board = board;
+	}
 	
 
 	

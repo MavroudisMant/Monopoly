@@ -42,7 +42,8 @@ public class GetOutOfJail extends javax.swing.JDialog {
 	if(parent.isPlayAgain()) {
 		player.getOutOfJail();
 		player.setTimeInJail(0);
-		parent.updateBoard(moveFor);
+//		parent.updateBoard(moveFor);
+                player.movePlayer(moveFor, true);
 		parent.setPlayAgain(false);
 		dialog.dispose();
 	}
