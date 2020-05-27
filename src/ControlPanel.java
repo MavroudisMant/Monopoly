@@ -8,6 +8,7 @@
  *
  * @author mmant
  */
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 
 public class ControlPanel extends javax.swing.JFrame {
 
@@ -127,11 +129,12 @@ public class ControlPanel extends javax.swing.JFrame {
     
     public void loadGame(){
         try {
-            FileInputStream fins = new FileInputStream("file.ser");
+            FileInputStream fins = new FileInputStream("./SavedGames/sad.ser");
             ObjectInputStream dins = new ObjectInputStream(fins);
             this.players = (ArrayList<Player>) dins.readObject();
             this.board.dispose();
             this.board = new Board((BoardBlock[]) dins.readObject());
+            dins.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -375,10 +378,16 @@ public class ControlPanel extends javax.swing.JFrame {
     private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveGameActionPerformed
         try {
             // TODO add your handling code here:
-            FileOutputStream outFile = new FileOutputStream("file.ser");
-            ObjectOutputStream douts = new ObjectOutputStream(outFile);
-            douts.writeObject(players);
-            douts.writeObject(board.getAllTheBlocks());
+            JFileChooser fc = new JFileChooser();
+            fc.setCurrentDirectory(new File("./SavedGames"));
+            int returnVal = fc.showSaveDialog(frame);
+            if(returnVal == JFileChooser.APPROVE_OPTION){
+                FileOutputStream outFile = new FileOutputStream(fc.getSelectedFile()+".ser");
+                ObjectOutputStream douts = new ObjectOutputStream(outFile);
+                douts.writeObject(players);
+                douts.writeObject(board.getAllTheBlocks());
+                douts.close();
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -392,7 +401,7 @@ public class ControlPanel extends javax.swing.JFrame {
         this.board = new Board();
         ArrayList<Player> newPlayers = new ArrayList<>();
         for(Player p: players){
-           newPlayers.add(new Player(p.getName(), 1500));
+           newPlayers.add(new Player(p.getName()));
         }
         this.players = newPlayers;
         this.initializeBoard();

@@ -22,10 +22,10 @@ public class Main {
         }
 		
 		//Player[] players = new Player[2];
-		Player p1 = new Player("Mavroudis", 200);
-		Player p2 = new Player("Giorgos", 400);
-		Player p3 = new Player("Tralalala", 400);
-		Player p4 = new Player("Trololololo", 100);
+		Player p1 = new Player("Mavroudis");
+		Player p2 = new Player("Giorgos");
+		Player p3 = new Player("Tralalala");
+		Player p4 = new Player("Trololololo");
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(p1);
 		players.add(p2);
@@ -39,7 +39,7 @@ public class Main {
 		//panel.main(players);
 		//ControlPanel.main(players);
         ControlPanel panel = new ControlPanel(players);
-        //panel.loadGame();
+//        panel.loadGame();
 	}
 
 }

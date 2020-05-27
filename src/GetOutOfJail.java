@@ -1,5 +1,6 @@
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,14 +25,22 @@ public class GetOutOfJail extends javax.swing.JDialog {
         initComponents();
         dialog = this;
         this.player = player;
+
         passButton.setEnabled(false);
         this.parent = parent;
         this.setLocationRelativeTo(null);
+        if(player.getGetOutOfJailCards().size() >= 1) {
+            useCardButton.setEnabled(true);
+        }
+        else{
+            useCardButton.setEnabled(false);
+        }
         this.setVisible(true);
+
     }
     
     public void payAction(){
-        //Call the players pay method /////////////////////////////////////////////////AAAAAAAAAAAAAAAAAA
+        player.payFine(50);
 	player.getOutOfJail();
 	player.setTimeInJail(0);
 	dialog.dispose();        
@@ -64,6 +73,13 @@ public class GetOutOfJail extends javax.swing.JDialog {
         dialog.dispose();
 
     }
+    
+    public void useCardAction(){
+        player.removeOutOfJailCards();
+        player.getOutOfJail();
+        JOptionPane.showMessageDialog(this, "Your get out of jail card got you out");
+        dialog.dispose();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,6 +95,7 @@ public class GetOutOfJail extends javax.swing.JDialog {
         payButton = new javax.swing.JButton();
         rollDiceButton = new javax.swing.JButton();
         passButton = new javax.swing.JButton();
+        useCardButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -105,6 +122,13 @@ public class GetOutOfJail extends javax.swing.JDialog {
             }
         });
 
+        useCardButton.setText("Use Card");
+        useCardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useCardButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,9 +138,11 @@ public class GetOutOfJail extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
+                        .addGap(27, 27, 27)
                         .addComponent(rollDiceButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(useCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
                         .addComponent(passButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(message, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -130,7 +156,8 @@ public class GetOutOfJail extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(payButton)
                     .addComponent(rollDiceButton)
-                    .addComponent(passButton))
+                    .addComponent(passButton)
+                    .addComponent(useCardButton))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -163,6 +190,11 @@ public class GetOutOfJail extends javax.swing.JDialog {
         passAction();
     }//GEN-LAST:event_passButtonActionPerformed
 
+    private void useCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useCardButtonActionPerformed
+        // TODO add your handling code here:
+        useCardAction();
+    }//GEN-LAST:event_useCardButtonActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -171,5 +203,6 @@ public class GetOutOfJail extends javax.swing.JDialog {
     private javax.swing.JButton passButton;
     private javax.swing.JButton payButton;
     private javax.swing.JButton rollDiceButton;
+    private javax.swing.JButton useCardButton;
     // End of variables declaration//GEN-END:variables
 }

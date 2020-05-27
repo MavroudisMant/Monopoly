@@ -43,9 +43,11 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="payButton" min="-2" pref="82" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="rollDiceButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="useCardButton" min="-2" pref="90" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="passButton" min="-2" pref="82" max="-2" attributes="0"/>
                       </Group>
                       <Component id="message" min="-2" pref="412" max="-2" attributes="0"/>
@@ -64,6 +66,7 @@
                       <Component id="payButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rollDiceButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="passButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="useCardButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="41" max="32767" attributes="0"/>
               </Group>
@@ -98,6 +101,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="useCardButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Use Card"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useCardButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

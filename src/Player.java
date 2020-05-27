@@ -8,7 +8,8 @@ import javax.swing.JOptionPane;
 public class Player implements Serializable{
 	private String name;
 	private int money;
-	private ArrayList<String> cards; 
+	private ArrayList<OrderCard> getOutOfJailCards;
+	private ArrayList<String> propertyCards; 
 	private int position;
 	private JLabel pawn;
 	private boolean inJail;
@@ -16,10 +17,11 @@ public class Player implements Serializable{
 	private Board board;
 
 	
-	public Player(String name, int money) {
+	public Player(String name) {
 		this.name = name;
 		this.money = 1500;
-		cards = new ArrayList<>();
+		getOutOfJailCards = new ArrayList<>();
+		propertyCards = new ArrayList<>();
 		position = 0;
 		timeInJail = 0;
 		inJail = false;
@@ -73,16 +75,36 @@ public class Player implements Serializable{
 		
 	}
 	
+	public void payFine(int money) {
+		if(this.money>=money) {
+			this.money -= money; 
+		}else {
+			JOptionPane.showMessageDialog(null, "You don't have enough money to pay the rent");
+		}
+	}
+	
 	public void buyCard(String card) {
 		
 	}
 	
+	public void addGetOutOfJailCard(OutOfJailOrder order) {
+		this.getOutOfJailCards.add(order);
+	}
+	
+	public void removeOutOfJailCards() {
+		this.getOutOfJailCards.remove(0);
+	}
+	
+	public ArrayList<OrderCard> getGetOutOfJailCards() {
+		return getOutOfJailCards;
+	}
+
 	public void buildHouse(String card, int quantity) {
 		
 	}
 
 	public ArrayList<String> getCards() {
-		return cards;
+		return propertyCards;
 	}
 
 	
