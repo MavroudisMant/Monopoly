@@ -51,8 +51,5 @@ public class BoardBlock implements Serializable {
 		return "BoardBlock [position=" + position + "]";
 	}
 	
-	public void executeBlockAction(Player player) {
-		player.goToJail();
-	}
  
 }
