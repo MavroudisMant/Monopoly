@@ -7,7 +7,7 @@ public class GoToJail extends BoardBlock{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void GoToJailAction(Player player) {
+	public void BlockAction(Player player) {
 		JOptionPane.showMessageDialog(null, "Go to Jail");
 		player.goToJail();
 	}

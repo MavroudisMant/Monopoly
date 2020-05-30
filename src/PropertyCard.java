@@ -5,25 +5,23 @@ import javax.swing.JOptionPane;
 public class PropertyCard extends BoardBlock{
 	private int price;
 	private int housePrice;
-	private ArrayList<PropertyCard> collection;
-	private boolean collectionComplete = true;
 	private Player owner;
 	private int rent;
 	private int houses;
-	private int position;
-	private boolean inMortgage = true;
-	private ArrayList<String> card;
-	private String Team;
+	private boolean inMortgage;
+	private String team;
 	private int teamSize;
 	
 
-	public PropertyCard(int position,String picturePath,int price,ArrayList <PropertyCard> collection,int housePrice) {
+	public PropertyCard(String picturePath,int price,int rent,int housePrice,String team, int teamSize) {
 		super(picturePath);
-		// TODO Auto-generated constructor stub
-		this.position = position;
-		this.housePrice = housePrice;
 		this.price = price;
-		this.collection = collection;
+		this.rent = rent;
+		this.housePrice = housePrice;
+		this.team = team;
+		this.teamSize = teamSize;
+		this.houses = 0;
+		this.inMortgage = false;
 	}
 	
 	public int calculateCharge() {
@@ -31,24 +29,30 @@ public class PropertyCard extends BoardBlock{
 	}
 	
 	public void addHouse(int quantity) {
-		if(collectionComplete) 
-			houses+=quantity;
-		else
-			JOptionPane.showMessageDialog(null, "You must complete the collection");
+		houses+=quantity;
 	}
 	
 	public void mortgageCard(Player owner) {
-		owner.getPaid(price);
+		owner.getPaid(price/2);
+		inMortgage = true;
+	}
+	
+	public void outOfMortgage(Player player) {
+		player.payFine(price/2);
 		inMortgage = false;
 	}
 	
-	public void PropertyAction(Player owner) {
-		if(!inMortgage)
-			CurrentCardOption(owner,owner.getCards());
+	public void blockAction(Player player) {
+		if(!inMortgage) {
+			//Call current card options
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "This card is in mortgage");
+		}
 	}
 	
 	public String getTeam() {
-		return Team;
+		return team;
 	}
 	
 	public int getTeamSize() {
