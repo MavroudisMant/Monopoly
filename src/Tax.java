@@ -2,17 +2,13 @@
 public class Tax extends BoardBlock{
 	private int tax;
 	
-	public Tax(int position,String picturePath,Player player) {
+	public Tax(int tax,String picturePath) {
 		super(picturePath);
-		if(player.getPosition()==5) {
-			tax=200;
-		}
-		else if(player.getPosition()==38)
-			tax=100;
+		this.tax = tax;
 	}
 	
-	public void TaxBoardAction () {
-		PayBank(tax);
+	public void TaxBoardAction (Player player) {
+		player.payFine(tax);
 		
 	}
 	
