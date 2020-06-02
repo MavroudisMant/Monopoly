@@ -57,10 +57,10 @@ public class ControlPanel extends javax.swing.JFrame {
     	currentPlayer.setText(players.get(currentPlayerIndex).getName());//players[currentPlayerIndex].getName());
     	playerMoney.setText(Integer.toString(players.get(currentPlayerIndex).getMoney())+ "E");   	
     	listModel.clear();
-    	for(String card: players.get(currentPlayerIndex).getCards())
+    	for(PropertyCard card: players.get(currentPlayerIndex).getCards())
     	{
     		//System.out.print(card);
-    		listModel.addElement(card);
+    		listModel.addElement(card.toString());
     	}
     	playerCards.setModel(listModel);
     	if(players.get(currentPlayerIndex).isInJail())
@@ -348,6 +348,7 @@ public class ControlPanel extends javax.swing.JFrame {
     private void currCardOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currCardOptionsActionPerformed
         // TODO add your handling code here:
         //Calls the CurrentCards class
+        
     }//GEN-LAST:event_currCardOptionsActionPerformed
 
     private void manageCardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCardsActionPerformed

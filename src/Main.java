@@ -21,25 +21,8 @@ public class Main {
             java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 		
-		//Player[] players = new Player[2];
-		Player p1 = new Player("Mavroudis");
-		Player p2 = new Player("Giorgos");
-		Player p3 = new Player("Tralalala");
-		Player p4 = new Player("Trololololo");
-		ArrayList<Player> players = new ArrayList<>();
-		players.add(p1);
-		players.add(p2);
-		//players.add(p3);
-		//players.add(p4);
-		//players[0] = p1;
-		//players[1] = p2;
-		//new ControlPanel(players);
-		//new Board();
-		//ControlPanel panel = new ControlPanel();
-		//panel.main(players);
-		//ControlPanel.main(players);
-        ControlPanel panel = new ControlPanel(players);
-//        panel.loadGame();
+		SelectPlayersUI start = new SelectPlayersUI();
+//       
 	}
 
 }

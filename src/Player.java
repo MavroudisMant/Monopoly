@@ -9,7 +9,7 @@ public class Player implements Serializable{
 	private String name;
 	private int money;
 	private ArrayList<OrderCard> getOutOfJailCards;
-	private ArrayList<String> propertyCards; 
+	private ArrayList<PropertyCard> propertyCards; 
 	private int position;
 	private JLabel pawn;
 	private boolean inJail;
@@ -103,7 +103,7 @@ public class Player implements Serializable{
 		
 	}
 
-	public ArrayList<String> getCards() {
+	public ArrayList<PropertyCard> getCards() {
 		return propertyCards;
 	}
 
@@ -140,6 +140,22 @@ public class Player implements Serializable{
 	public void setBoard(Board board) {
 		this.board = board;
 	}
+        
+        public int countSameTeamCards(PropertyCard card){
+            int sum=0;
+            for(int i=0;i<=this.getCards().size();i++){
+                if(this.getCards().get(i).getTeam().equals(card.getTeam())){
+                    sum++;                   
+                }
+            }
+            
+            
+           return sum; 
+        }
+        
+        public boolean isCollectionFull(PropertyCard card){
+            return countSameTeamCards(card) == card.getTeamSize();
+        }
 	
 
 	
