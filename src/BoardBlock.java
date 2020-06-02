@@ -44,7 +44,10 @@ public class BoardBlock implements Serializable {
 		picture.setIcon(icon);
 	}
 	
-
+	public void blockAction(Player player) {
+		
+	}
+	
 
 	@Override
 	public String toString() {

@@ -9,5 +9,9 @@ public class OutOfJailOrder extends OrderCard {
 	public void cardOrders(Player player) {
 		player.addGetOutOfJailCard(this);
 	}
+	
+	public String getType() {
+		return "OutOfJailOrder";
+	}
 
 }

@@ -51,4 +51,8 @@ public class PayBankOrder extends OrderCard {
 			//Draw another card
 		}
 	}
+	
+	public String getType() {
+		return "PayBankOrder";
+	}
 }

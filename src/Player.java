@@ -111,7 +111,8 @@ public class Player implements Serializable{
 	public void movePlayer(int dice, boolean getPaid) {
 		int posbefore = position;
 		position = (position + dice) % BoardBlock.getTotalBlocks();
-		this.board.updateBoard(this, posbefore, position);
+		BoardBlock block = this.board.updateBoard(this, posbefore, position);
+		block.blockAction(this);
 		if(posbefore > position && getPaid) {   //auto shmainei oti perase apo thn afaithria
 			this.getPaid(200);
 		}

@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public abstract class OrderCard {
+public abstract class OrderCard implements Serializable{
 	private String text;
 	
 	public OrderCard(String text) {
@@ -11,4 +12,6 @@ public abstract class OrderCard {
 	public String getText() {
 		return text;
 	}
+	
+	public abstract String getType();
 }

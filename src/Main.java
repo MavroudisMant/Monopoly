@@ -1,3 +1,7 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Main {
@@ -28,7 +32,7 @@ public class Main {
 		Player p4 = new Player("Trololololo");
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(p1);
-		players.add(p2);
+		//players.add(p2);
 		//players.add(p3);
 		//players.add(p4);
 		//players[0] = p1;
@@ -40,6 +44,19 @@ public class Main {
 		//ControlPanel.main(players);
         ControlPanel panel = new ControlPanel(players);
 //        panel.loadGame();
+//        ArrayList<OrderCard> cards = new ArrayList<>();
+//        cards.add(new PayBankOrder("gia sas", 100, 0));
+//		try {
+//		FileOutputStream fouts = new FileOutputStream("./CardFiles/OrderCards.ser");
+//		ObjectOutputStream douts = new ObjectOutputStream(fouts);
+//		douts.writeObject(cards);
+//	} catch (FileNotFoundException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} catch (IOException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
 	}
 
 }

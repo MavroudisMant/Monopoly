@@ -19,4 +19,16 @@ public class PaidByPlayersOrder extends OrderCard {
 		}
 	}
 
+	public void setPlayersList(ArrayList<Player> playersList) {
+		this.playersList = playersList;
+	}
+	
+	public String getType() {
+		return "PaidByPlayersOrder";
+	}
+	
+	public ArrayList<Player> getP(){
+		return playersList;
+	}
+
 }

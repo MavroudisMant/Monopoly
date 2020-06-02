@@ -41,7 +41,7 @@ public class ControlPanel extends javax.swing.JFrame {
         this.players = players;
         currentPlayerIndex = 0;
     	frame = this;
-    	board = new Board();
+    	board = new Board(this.players);
     	initializeBoard();
         currCardOptions.setEnabled(false); //You can not manage the current card before playing
         endRound.setEnabled(false); //You have to play before finishing your round
@@ -116,7 +116,7 @@ public class ControlPanel extends javax.swing.JFrame {
     }
     
     public void initializeBoard() {
-    	board.initializeBoard(players);
+    	board.initializeBoard();
     }
     
     public boolean isPlayAgain() {
@@ -398,7 +398,7 @@ public class ControlPanel extends javax.swing.JFrame {
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
         // TODO add your handling code here:
         this.board.dispose();
-        this.board = new Board();
+        this.board = new Board(players);
         ArrayList<Player> newPlayers = new ArrayList<>();
         for(Player p: players){
            newPlayers.add(new Player(p.getName()));

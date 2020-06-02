@@ -40,5 +40,9 @@ public class MovePlayerOrder extends OrderCard {
 		int moveFor = BoardBlock.getTotalBlocks() - 3;//Moves the player back 3 blocks
 		player.movePlayer(moveFor, false);//Doesn't get paid if he passes from the start
 	}
+	
+	public String getType() {
+		return "MovePlayerOrder";
+	}
 
 }
