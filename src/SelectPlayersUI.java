@@ -14,7 +14,7 @@ import javax.swing.DefaultListModel;
 public class SelectPlayersUI extends javax.swing.JFrame {
 
     private int numPlayers;
-    private  int i = 0;
+    private  int i = 1;
     private int playersAdded = 0;
     private ArrayList<Player> players = new ArrayList<>();
     
@@ -434,7 +434,8 @@ public class SelectPlayersUI extends javax.swing.JFrame {
 
     private void addPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlayerActionPerformed
         // TODO add your handling code here:
-        if(i<numPlayers){
+        if(i<=numPlayers){
+            
             
         
         String name;
@@ -468,14 +469,18 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         
         i++;
         currentPlayer.setText("Player " +i);
-   
         
-        }
-        else{       
+        if(i>numPlayers){    
             compVisibility(false);
             jButton1.setVisible(true);
             readyLabel.setVisible(true);
+           }
+        
+   
+        
         }
+           
+        
     }//GEN-LAST:event_addPlayerActionPerformed
 
     private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed
