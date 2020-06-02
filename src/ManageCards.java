@@ -5,19 +5,30 @@
  */
 
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 
-/**
- *
- * @author R1zwan
- */
+
 public class ManageCards extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ManageCards
-     */
-    public ManageCards() {
+    private ArrayList<PropertyCard> collection = new ArrayList<>();
+    public ManageCards(ArrayList<PropertyCard> playerCollection) {
+        
+        this.collection = playerCollection;
         initComponents();
+        this.setVisible(true);
+        
+        DefaultListModel listModel = new DefaultListModel();
+        for (int i = 0; i < collection.size(); i++)
+        {
+            listModel.addElement(collection.get(i));
+        }
+        playerCollectionList.setModel(listModel);
+        
+        
+        
+        
     }
 
     /**
@@ -30,42 +41,37 @@ public class ManageCards extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        playerCollectionList = new javax.swing.JList<>();
+        cardName = new javax.swing.JLabel();
+        tradeButton = new javax.swing.JButton();
+        buildButton = new javax.swing.JButton();
+        sellButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList1.addAncestorListener(new javax.swing.event.AncestorListener() {
+        playerCollectionList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jList1AncestorAdded(evt);
+                playerCollectionListAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        playerCollectionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList1ValueChanged(evt);
+                playerCollectionListValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(playerCollectionList);
 
-        jLabel2.setText("jLabel2");
+        cardName.setText("jLabel2");
 
-        jButton1.setText("Trade");
+        tradeButton.setText("Trade");
 
-        jButton2.setText("Build");
+        buildButton.setText("Build");
 
-        jButton3.setText("Sell");
+        sellButton.setText("Sell");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,41 +82,44 @@ public class ManageCards extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cardName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jButton3)
+                        .addComponent(sellButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(buildButton)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton1)
+                        .addComponent(tradeButton)
                         .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(tradeButton)
+                    .addComponent(buildButton)
+                    .addComponent(sellButton))
                 .addGap(57, 57, 57))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jList1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList1AncestorAdded
+    
+    
+    private void playerCollectionListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_playerCollectionListAncestorAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_jList1AncestorAdded
+    }//GEN-LAST:event_playerCollectionListAncestorAdded
 
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+    private void playerCollectionListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerCollectionListValueChanged
         // TODO add your handling code here:
         
-        jLabel2.setText(jList1.getSelectedValue());
-    }//GEN-LAST:event_jList1ValueChanged
+        cardName.setText(playerCollectionList.getSelectedValue());
+    }//GEN-LAST:event_playerCollectionListValueChanged
+    
     
     
     /**
@@ -141,20 +150,15 @@ public class ManageCards extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageCards().setVisible(true);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton buildButton;
+    private javax.swing.JLabel cardName;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> playerCollectionList;
+    private javax.swing.JButton sellButton;
+    private javax.swing.JButton tradeButton;
     // End of variables declaration//GEN-END:variables
 }

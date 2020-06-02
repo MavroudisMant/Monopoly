@@ -173,7 +173,7 @@ public class CurrentCardOptions extends javax.swing.JFrame {
 
     private void payRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payRentActionPerformed
         // TODO add your handling code here:
-        currentCard.getOwner().payPlayer(ControlPanel.getCurrentPlayerIndex,currentCard.calculateCharge());
+      
     }//GEN-LAST:event_payRentActionPerformed
 
     private void buyCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyCardActionPerformed

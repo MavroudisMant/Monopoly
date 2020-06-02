@@ -44,7 +44,7 @@ public class PropertyCard extends BoardBlock{
 	
 	public void blockAction(Player player) {
 		if(!inMortgage) {
-			//Call current card options
+                    CurrentCardOptions currentCard = new CurrentCardOptions(this);
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "This card is in mortgage");
@@ -58,5 +58,9 @@ public class PropertyCard extends BoardBlock{
 	public int getTeamSize() {
 		return teamSize;
 	}
+        
+        public Player getOwner(){
+            return owner;
+        }
 
 }

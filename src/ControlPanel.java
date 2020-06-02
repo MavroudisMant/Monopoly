@@ -355,6 +355,7 @@ public class ControlPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Calls the ManageCards class
         players.get(currentPlayerIndex).goToJail();
+        ManageCards manageCards = new ManageCards(players.get(currentPlayerIndex).getCards());
     }//GEN-LAST:event_manageCardsActionPerformed
 
     private void forfeitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forfeitActionPerformed
