@@ -443,10 +443,11 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         name = playersName.getText();
         nonHuman = humanButton.isSelected();
         if(nonHuman){
-            System.out.println("bot");
+            Player player = new NonHumanPlayer(name, players);
+            players.add(player);
         }
         else{
-            Player player = new Player(name);
+            Player player = new Player(name, players);
             players.add(player);
             
             
