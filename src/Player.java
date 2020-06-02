@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -10,6 +11,7 @@ public class Player implements Serializable{
 	private int money;
 	private ArrayList<OrderCard> getOutOfJailCards;
 	private ArrayList<PropertyCard> propertyCards; 
+	private ArrayList<Player> players;
 	private int position;
 	private JLabel pawn;
 	private boolean inJail;
@@ -17,11 +19,12 @@ public class Player implements Serializable{
 	private Board board;
 
 	
-	public Player(String name) {
+	public Player(String name, ArrayList<Player> players) {
 		this.name = name;
 		this.money = 1500;
 		getOutOfJailCards = new ArrayList<>();
 		propertyCards = new ArrayList<>();
+		this.players = players;
 		position = 0;
 		timeInJail = 0;
 		inJail = false;
@@ -79,7 +82,8 @@ public class Player implements Serializable{
 		if(this.money>=money) {
 			this.money -= money; 
 		}else {
-			JOptionPane.showMessageDialog(null, "You don't have enough money to pay the rent");
+			JOptionPane.showMessageDialog(null, "You don't have enough money to pay the fine");
+			forfeitAction();
 		}
 	}
 	
@@ -99,7 +103,7 @@ public class Player implements Serializable{
 		return getOutOfJailCards;
 	}
 
-	public void buildHouse(String card, int quantity) {
+	public void buildHouse(PropertyCard card, int quantity) {
 		
 	}
 
@@ -108,14 +112,18 @@ public class Player implements Serializable{
 	}
 
 	
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
 	public void movePlayer(int dice, boolean getPaid) {
 		int posbefore = position;
 		position = (position + dice) % BoardBlock.getTotalBlocks();
 		BoardBlock block = this.board.updateBoard(this, posbefore, position);
-		block.blockAction(this);
-		if(posbefore > position && getPaid) {   //auto shmainei oti perase apo thn afaithria
+		if((posbefore > position) & getPaid) {   //auto shmainei oti perase apo thn afaithria
 			this.getPaid(200);
 		}
+		block.blockAction(this);
 	}
 	
 	public void movePlayerToBlock(int position, boolean getPaid) {
@@ -159,7 +167,38 @@ public class Player implements Serializable{
         }
 	
 
+        public int[] rollDiceAction() {
+        	int firstDie = 6;//ThreadLocalRandom.current().nextInt(1, 7);     	
+        	int secondDie = 4;//ThreadLocalRandom.current().nextInt(1,7);
+        	int[] dice = {firstDie, secondDie};
+        	return dice;
+        }
 	
-	
-	
+        public int forfeitAction() {
+        	int currentPlayerIndex = players.indexOf(this);
+            BoardBlock block = board.getPlayerPositionOnBoard();
+            block.removePawn(players.get(currentPlayerIndex).getPawn());
+        	for(PropertyCard c: players.get(currentPlayerIndex).getCards())
+        	{
+        		//c.setOwner(null);
+        	}		
+        	players.remove(currentPlayerIndex);
+        	if(currentPlayerIndex == players.size())
+        		currentPlayerIndex = 0;
+        	currentPlayerIndex = this.endRoundAction(currentPlayerIndex);
+        	/*if(players.size() == 1)
+        	{
+        		get Winner
+        	}*/
+        	return currentPlayerIndex;
+        }
+        
+        public int endRoundAction(int currentPlayerIndex) {
+        	currentPlayerIndex = (currentPlayerIndex+1) % players.size();
+        	return currentPlayerIndex;
+        }
+        
+        public String getType() {
+        	return "HumanPlayer";
+        }
 }

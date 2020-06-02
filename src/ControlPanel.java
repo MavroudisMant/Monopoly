@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -63,52 +62,19 @@ public class ControlPanel extends javax.swing.JFrame {
     		listModel.addElement(card.toString());
     	}
     	playerCards.setModel(listModel);
-    	if(players.get(currentPlayerIndex).isInJail())
-    	{
-            new GetOutOfJail(frame, true, players.get(currentPlayerIndex));
-    	}
-    }
-    
-    public void endRoundAction() {
-    	currentPlayerIndex = (currentPlayerIndex+1) % players.size();
-    	endRound.setEnabled(false); 
-    	rollDice.setEnabled(true); //when the round finishes re enable the rollDice for the next Player 
-    }
-    
-    
-    public int rollDiceAction() {
-    	int firstDie = ThreadLocalRandom.current().nextInt(1, 7);     	
-    	die1.setText(Integer.toString(firstDie));
-    	int secondDie = ThreadLocalRandom.current().nextInt(1,7);
-    	die2.setText(Integer.toString(secondDie));
-    	if(firstDie == secondDie)
-    		playAgain = true;
-        else
-            playAgain = false;
-        players.get(currentPlayerIndex).movePlayer(firstDie+secondDie, true);//walks normal. So he has to get paid if he passes the start
-    	return firstDie+secondDie;
-    }
+        if(players.get(currentPlayerIndex).getType().equals("NonHumanPlayer")){
+            ((NonHumanPlayer)players.get(currentPlayerIndex)).playTurn(this);
+        }
+        else{
+            if(players.get(currentPlayerIndex).isInJail())
+            {
+                GetOutOfJail jailWindow = new GetOutOfJail(frame, true, players.get(currentPlayerIndex));
+                jailWindow.setVisible(true);
+            }
+        }
 
-    public void forfeitAction() {
-    	/*for(Card c: players.get(currentPlayerIndex).getCards())
-    	{
-    		c.setOwner = null;
-    	}*/ 		
-    	players.remove(currentPlayerIndex);
-    	if(currentPlayerIndex == players.size())
-    		currentPlayerIndex = 0;
-    	updateControlPanel();
-        endRoundAction();
-    	/*if(players.size() == 1)
-    	{
-    		get Winner
-    	}*/
     }
-
-//    public void updateBoard(int moveFor) { //This method is created for the GetOutOfJail class can use it
-//    	BoardBlock block = board.updateBoard(players.get(currentPlayerIndex), moveFor);
-//		executeBlockAction(block);
-//    }
+    
     
     public void executeBlockAction(BoardBlock block) {
     	currCardOptions.setEnabled(true);
@@ -145,6 +111,9 @@ public class ControlPanel extends javax.swing.JFrame {
         
     }
 
+    public void setCurrentPlayerIndex(int newIndex){
+        this.currentPlayerIndex = newIndex;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -338,7 +307,11 @@ public class ControlPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
 //	int moveFor = rollDiceAction();
 //	updateBoard(moveFor);
-        rollDiceAction();
+        int dice[] = players.get(currentPlayerIndex).rollDiceAction();
+        die1.setText(Integer.toString(dice[0]));
+        die2.setText(Integer.toString(dice[1]));
+        players.get(currentPlayerIndex).movePlayer(dice[0]+dice[1], true);//walks normal. So he has to get paid if he passes the start
+        playAgain = dice[0] == dice[1];
 	if(!playAgain) {
 	rollDice.setEnabled(false); //if playAgain==true you can roll again
 	endRound.setEnabled(true); //if playAgain==false you can finish your round
@@ -361,16 +334,27 @@ public class ControlPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
         BoardBlock block = board.getPlayerPositionOnBoard();
 	block.removePawn(players.get(currentPlayerIndex).getPawn());
-	forfeitAction();
+        currentPlayerIndex = players.get(currentPlayerIndex).forfeitAction();
+        endRound.setEnabled(false); 
+    	rollDice.setEnabled(true);
     }//GEN-LAST:event_forfeitActionPerformed
 
     private void endRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endRoundActionPerformed
         // TODO add your handling code here:
         //Check if the next player is human/AI and if he is in Jail????? 
-	endRoundAction();
+        currentPlayerIndex = players.get(currentPlayerIndex).endRoundAction(currentPlayerIndex);
 	updateControlPanel();
+        endRound.setEnabled(false); 
+    	rollDice.setEnabled(true); //when the round finishes re enable the rollDice for the next Player 
     }//GEN-LAST:event_endRoundActionPerformed
 
+    //This method is for the GetOutOfJail to call so that we do not need to give
+    //the players list just for this one action
+    public void endRoundAction(){
+        currentPlayerIndex = players.get(currentPlayerIndex).endRoundAction(currentPlayerIndex);
+        updateControlPanel();
+    }
+    
     private void endGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameActionPerformed
         // TODO add your handling code here:
         //Calls the get Winner Class
@@ -402,7 +386,7 @@ public class ControlPanel extends javax.swing.JFrame {
         this.board = new Board(players);
         ArrayList<Player> newPlayers = new ArrayList<>();
         for(Player p: players){
-           newPlayers.add(new Player(p.getName()));
+           newPlayers.add(new Player(p.getName(), players));
         }
         this.players = newPlayers;
         this.initializeBoard();

@@ -35,7 +35,6 @@ public class GetOutOfJail extends javax.swing.JDialog {
         else{
             useCardButton.setEnabled(false);
         }
-        this.setVisible(true);
 
     }
     
@@ -46,25 +45,28 @@ public class GetOutOfJail extends javax.swing.JDialog {
 	dialog.dispose();        
     }
     
-    public void rollAction(){
-        int moveFor = parent.rollDiceAction();
-	if(parent.isPlayAgain()) {
+    public boolean rollAction(){
+        int[] dice = player.rollDiceAction();
+	if(dice[0] == dice[1]) {
 		player.getOutOfJail();
 		player.setTimeInJail(0);
 //		parent.updateBoard(moveFor);
-                player.movePlayer(moveFor, true);
+                player.movePlayer(dice[0]+dice[1], true);
 		parent.setPlayAgain(false);
 		dialog.dispose();
+                return true;
 	}
 	else if(player.getTimeInJail()<2)
 	{
 		player.setTimeInJail(player.getTimeInJail()+1);
 		passButton.setEnabled(true);
 		rollDiceButton.setEnabled(false);
+                return false;
 	}
 	else
 	{
 		rollDiceButton.setEnabled(false);
+                return false;
 	}
     }
     

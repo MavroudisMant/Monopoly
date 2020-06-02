@@ -27,7 +27,6 @@ public class Main {
 		
 		SelectPlayersUI start = new SelectPlayersUI();
 //       
->>>>>>> c76fef6e077010f0cdc7e751695e561fbca66794
 	}
 
 }

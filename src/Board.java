@@ -15,10 +15,6 @@ public class Board extends JFrame{
 	private ArrayList<Player> players;
 	private Player currentPlayer;
 	private BoardBlock[] allTheBlocks;
-	private BoardBlock startBlock, leftBlock1, leftBlock2, leftBlock3, leftBlock4, leftBlock5, leftBlock6, leftBlock7, leftBlock8, leftBlock9,
-						jailBlock, topBlock1, topBlock2, topBlock3, topBlock4, topBlock5, topBlock6, topBlock7, topBlock8, topBlock9,
-						stopBlock, rightBlock1, rightBlock2, rightBlock3, rightBlock4, rightBlock5, rightBlock6, rightBlock7, rightBlock8, rightBlock9,
-						goToJailBlock, bottomBlock1, bottomBlock2, bottomBlock3, bottomBlock4, bottomBlock5, bottomBlock6, bottomBlock7, bottomBlock8, bottomBlock9;
 	
 	public Board(ArrayList<Player> players) {
 		this.players = players;

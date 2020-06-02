@@ -49,11 +49,5 @@ public class DecisionInstructionCard extends BoardBlock{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(OrderCard o: orderCards) {
-			if(o.getType().equals("PaidByPlayersOrder")) {
-				((PaidByPlayersOrder) o).setPlayersList(players);
-			}
-				
-		}
 	}
 }
