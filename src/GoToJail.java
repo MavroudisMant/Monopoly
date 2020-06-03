@@ -12,4 +12,7 @@ public class GoToJail extends BoardBlock{
 		player.goToJail();
 	}
 
+	public String getType() {
+		return "GoToJail";
+	}
 }

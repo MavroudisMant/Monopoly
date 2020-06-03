@@ -7,10 +7,12 @@ public class Tax extends BoardBlock{
 		this.tax = tax;
 	}
 	
-	public void TaxBoardAction (Player player) {
+	public void blockAction (Player player) {
 		player.payFine(tax);
 		
 	}
 	
-
+	public String getType() {
+		return "Tax";
+	}
 }

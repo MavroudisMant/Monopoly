@@ -25,8 +25,11 @@ public class PayBankOrder extends OrderCard {
 		else if(type == 1){
 			payFine(player);
 		}
-		else {
+		else if(type == 2 && player.getType().equals("HumanPlayer")){
 			payFineOption(player);
+		}
+		else {
+			((NonHumanPlayer)player).checkPayOrDrawCard(money);
 		}
 	}
 
@@ -48,11 +51,16 @@ public class PayBankOrder extends OrderCard {
 			player.payFine(money);
 		}
 		else {
-			//Draw another card
+			BoardBlock block = player.getBoard().getPlayerPositionOnBoard();
+			block.blockAction(player);
 		}
 	}
 	
 	public String getType() {
 		return "PayBankOrder";
+	}
+	
+	public int getTransactionType() {
+		return type;
 	}
 }

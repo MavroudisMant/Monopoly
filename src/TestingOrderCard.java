@@ -48,25 +48,25 @@ class TestingOrderCard {
 //		
 //		PaidByPlayersOrder order = new PaidByPlayersOrder("sss", 100, players);
 //		order.cardOrders(p1);
-		
-		//Testing MovePlayerOrder
-		Player p1 = new Player("Mavroudis");
-		ArrayList<Player> players = new ArrayList<>();
-		players.add(p1);
-		new ControlPanel(players);
-//		MovePlayerOrder order = new MovePlayerOrder("sss", -2);
+//		
+//		//Testing MovePlayerOrder
+////		Player p1 = new Player("Mavroudis");
+//		ArrayList<Player> players = new ArrayList<>();
+////		players.add(p1);
+//		new ControlPanel(players);
+////		MovePlayerOrder order = new MovePlayerOrder("sss", -2);
+////		order.cardOrders(p1);
+////		assertEquals(10, p1.getPosition());
+////		assertEquals(true, p1.isInJail());
+//		
+////		MovePlayerOrder order = new MovePlayerOrder("sss", -1);
+////		order.cardOrders(p1);
+////		assertEquals(37, p1.getPosition());
+//		
+//		MovePlayerOrder order = new MovePlayerOrder("sss", 5);
 //		order.cardOrders(p1);
-//		assertEquals(10, p1.getPosition());
-//		assertEquals(true, p1.isInJail());
-		
-//		MovePlayerOrder order = new MovePlayerOrder("sss", -1);
-//		order.cardOrders(p1);
-//		assertEquals(37, p1.getPosition());
-		
-		MovePlayerOrder order = new MovePlayerOrder("sss", 5);
-		order.cardOrders(p1);
-		assertEquals(5, p1.getPosition());
-		
+//		assertEquals(5, p1.getPosition());
+//		
 	}
 
 }

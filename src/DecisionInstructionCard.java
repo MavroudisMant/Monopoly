@@ -24,10 +24,10 @@ public class DecisionInstructionCard extends BoardBlock{
 	
 	public void blockAction(Player player) {
 		int cardToDraw = rand.nextInt(orderCards.size());
-		OrderCard card = orderCards.get(cardToDraw);
-		card.cardOrders(player);
+		OrderCard card = orderCards.get(0);
 		drawnCards.add(card);
 		orderCards.remove(card);
+		card.cardOrders(player);
 		if (orderCards.size()==0)
 			orderCards = drawnCards;
 	}
@@ -49,5 +49,9 @@ public class DecisionInstructionCard extends BoardBlock{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String getType() {
+		return "DecisionInstructionCard";
 	}
 }
