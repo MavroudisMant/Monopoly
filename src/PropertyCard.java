@@ -44,7 +44,7 @@ public class PropertyCard extends BoardBlock{
 	
 	public void blockAction(Player player) {
 		if(!inMortgage) {
-                    CurrentCardOptions currentCard = new CurrentCardOptions(this);
+                    CurrentCardOptions currentCard = new CurrentCardOptions(this,player);
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "This card is in mortgage");

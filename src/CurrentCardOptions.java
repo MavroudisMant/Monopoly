@@ -8,10 +8,12 @@
 public class CurrentCardOptions extends javax.swing.JFrame {
     
     private PropertyCard currentCard;
+    private Player currentPlayer;
     
-    public CurrentCardOptions(PropertyCard card) {
+    public CurrentCardOptions(PropertyCard card,Player player) {
         
         this.currentCard = card;
+        this.currentPlayer = player;
         initComponents();
         this.setVisible(true);
         if(card.getOwner() == null){

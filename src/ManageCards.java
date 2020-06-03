@@ -13,9 +13,12 @@ import javax.swing.event.ListSelectionEvent;
 public class ManageCards extends javax.swing.JFrame {
 
     private ArrayList<PropertyCard> collection = new ArrayList<>();
-    public ManageCards(ArrayList<PropertyCard> playerCollection) {
+    private Player currentPlayer ;
+    
+    public ManageCards(ArrayList<PropertyCard> playerCollection,Player player) {
         
         this.collection = playerCollection;
+        this.currentPlayer = player;
         initComponents();
         this.setVisible(true);
         
