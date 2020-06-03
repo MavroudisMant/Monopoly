@@ -11,9 +11,9 @@ public class PropertyCard extends BoardBlock{
 	private boolean inMortgage;
 	private String team;
 	private int teamSize;
-	
+	private String name;
 
-	public PropertyCard(String picturePath,int price,int rent,int housePrice,String team, int teamSize) {
+	public PropertyCard(String picturePath,int price,int rent,int housePrice,String team, int teamSize, String name) {
 		super(picturePath);
 		this.price = price;
 		this.rent = rent;
@@ -22,6 +22,7 @@ public class PropertyCard extends BoardBlock{
 		this.teamSize = teamSize;
 		this.houses = 0;
 		this.inMortgage = false;
+		this.name = name;
 	}
 	
 	public int calculateCharge() {
@@ -63,4 +64,39 @@ public class PropertyCard extends BoardBlock{
             return owner;
         }
 
+		public boolean isInMortgage() {
+			return inMortgage;
+		}
+
+		public void setInMortgage(boolean inMortgage) {
+			this.inMortgage = inMortgage;
+		}
+
+		public int getPrice() {
+			return price;
+		}
+
+		public int getHousePrice() {
+			return housePrice;
+		}
+
+		public int getRent() {
+			return rent;
+		}
+
+		public int getHouses() {
+			return houses;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setOwner(Player owner) {
+			this.owner = owner;
+		}
+
+		public String getType() {
+			return "PropertyCard";
+		}
 }

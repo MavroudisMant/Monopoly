@@ -68,7 +68,7 @@ public class ControlPanel extends javax.swing.JFrame {
         else{
             if(players.get(currentPlayerIndex).isInJail())
             {
-                GetOutOfJail jailWindow = new GetOutOfJail(frame, true, players.get(currentPlayerIndex));
+                GetOutOfJailGUI jailWindow = new GetOutOfJailGUI(frame, true, players.get(currentPlayerIndex));
                 jailWindow.setVisible(true);
             }
         }
@@ -343,18 +343,12 @@ public class ControlPanel extends javax.swing.JFrame {
     private void endRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endRoundActionPerformed
         // TODO add your handling code here:
         //Check if the next player is human/AI and if he is in Jail????? 
-        currentPlayerIndex = players.get(currentPlayerIndex).endRoundAction(currentPlayerIndex);
+        currentPlayerIndex = players.get(currentPlayerIndex).endRoundAction();
 	updateControlPanel();
         endRound.setEnabled(false); 
     	rollDice.setEnabled(true); //when the round finishes re enable the rollDice for the next Player 
     }//GEN-LAST:event_endRoundActionPerformed
 
-    //This method is for the GetOutOfJail to call so that we do not need to give
-    //the players list just for this one action
-    public void endRoundAction(){
-        currentPlayerIndex = players.get(currentPlayerIndex).endRoundAction(currentPlayerIndex);
-        updateControlPanel();
-    }
     
     private void endGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameActionPerformed
         // TODO add your handling code here:

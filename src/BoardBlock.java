@@ -54,5 +54,8 @@ public class BoardBlock implements Serializable {
 		return "BoardBlock [position=" + position + "]";
 	}
 	
+	public String getType() {
+		return "BoardBlock";
+	}
  
 }

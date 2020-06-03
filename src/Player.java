@@ -68,6 +68,8 @@ public class Player implements Serializable{
 		this.money += money;
 	}
 	
+	//return true if the player is able to pay
+	//return false if he can not pay
 	public void payPlayer(Player player, int money) {
 		if(this.money>=money) {
 			this.money -= money; 
@@ -78,17 +80,29 @@ public class Player implements Serializable{
 		
 	}
 	
-	public void payFine(int money) {
+	//return true if the player is able to pay
+	//return false if he can not pay
+	public boolean payFine(int money) {
 		if(this.money>=money) {
 			this.money -= money; 
+			return true;
 		}else {
 			JOptionPane.showMessageDialog(null, "You don't have enough money to pay the fine");
-			forfeitAction();
+			return false;
 		}
 	}
 	
-	public void buyCard(String card) {
-		
+	//return true if the player is able to buy the card
+	//return false if he can not buy it
+	public boolean buyCard(PropertyCard card) {
+		if(this.money>=money) {
+//			this.money -= card.getPrice(); 
+			propertyCards.add(card);
+			return true;
+		}else {
+			JOptionPane.showMessageDialog(null, "You don't have enough money to buy this property");
+			return false;
+		}
 	}
 	
 	public void addGetOutOfJailCard(OutOfJailOrder order) {
@@ -111,7 +125,7 @@ public class Player implements Serializable{
 		return propertyCards;
 	}
 
-	
+
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -153,11 +167,15 @@ public class Player implements Serializable{
 	public void setBoard(Board board) {
 		this.board = board;
 	}
+	
+	public Board getBoard() {
+		return board;
+	}
         
         public int countSameTeamCards(PropertyCard card){
             int sum=0;
-            for(int i=0;i<=this.getCards().size();i++){
-                if(this.getCards().get(i).getTeam().equals(card.getTeam())){
+            for(PropertyCard c: getCards()){
+                if(c.getTeam().equals(card.getTeam())){
                     sum++;                   
                 }
             }
@@ -172,8 +190,8 @@ public class Player implements Serializable{
 	
 
         public int[] rollDiceAction() {
-        	int firstDie = 6;//ThreadLocalRandom.current().nextInt(1, 7);     	
-        	int secondDie = 4;//ThreadLocalRandom.current().nextInt(1,7);
+        	int firstDie = 10;//ThreadLocalRandom.current().nextInt(1, 7);     	
+        	int secondDie = 0;//ThreadLocalRandom.current().nextInt(1,7);
         	int[] dice = {firstDie, secondDie};
         	return dice;
         }
@@ -189,7 +207,7 @@ public class Player implements Serializable{
         	players.remove(currentPlayerIndex);
         	if(currentPlayerIndex == players.size())
         		currentPlayerIndex = 0;
-        	currentPlayerIndex = this.endRoundAction(currentPlayerIndex);
+        	currentPlayerIndex = this.endRoundAction();
         	/*if(players.size() == 1)
         	{
         		get Winner
@@ -197,8 +215,8 @@ public class Player implements Serializable{
         	return currentPlayerIndex;
         }
         
-        public int endRoundAction(int currentPlayerIndex) {
-        	currentPlayerIndex = (currentPlayerIndex+1) % players.size();
+        public int endRoundAction() {
+        	int currentPlayerIndex = (players.indexOf(this)+1) % players.size();
         	return currentPlayerIndex;
         }
         
