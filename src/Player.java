@@ -19,7 +19,7 @@ public class Player implements Serializable{
 	private Board board;
 
 	
-	public Player(String name, ArrayList<Player> players) {
+	public Player(String name, ArrayList<Player> players,JLabel pawn) {
 		this.name = name;
 		this.money = 1500;
 		getOutOfJailCards = new ArrayList<>();
@@ -28,7 +28,7 @@ public class Player implements Serializable{
 		position = 0;
 		timeInJail = 0;
 		inJail = false;
-		this.pawn  = new JLabel(new ImageIcon("Icons/pion.png"));
+		this.pawn  = pawn;
 		
 	}
 	
@@ -145,6 +145,10 @@ public class Player implements Serializable{
 	public JLabel getPawn() {
 		return pawn;
 	}
+        
+        public void setPawn(JLabel pawn){
+            this.pawn = pawn;
+        }
 
 	public void setBoard(Board board) {
 		this.board = board;

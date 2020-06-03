@@ -5,10 +5,14 @@
  */
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 
 
 public class SelectPlayersUI extends javax.swing.JFrame {
@@ -17,6 +21,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
     private  int i = 1;
     private int playersAdded = 0;
     private ArrayList<Player> players = new ArrayList<>();
+    
     
     
     
@@ -31,6 +36,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         initComponents();
        compVisibility(false);
        this.setVisible(true);
+      
        
        existingGamePanel.setVisible(false);
        newGamePanel.setVisible(false);
@@ -62,6 +68,12 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         errorLabel.setVisible(false);
         jButton1.setVisible(false);
         readyLabel.setVisible(false);
+        icon1.setVisible(state);
+        icon2.setVisible(state);
+        icon3.setVisible(state);
+        icon4.setVisible(state);
+        icon5.setVisible(state);
+        icon6.setVisible(state);
         
         
     }
@@ -77,6 +89,8 @@ public class SelectPlayersUI extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         firstPanel = new javax.swing.JPanel();
         existingGameButton = new javax.swing.JButton();
@@ -100,9 +114,18 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         errorLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         readyLabel = new javax.swing.JLabel();
+        icon3 = new javax.swing.JLabel();
+        icon4 = new javax.swing.JLabel();
+        icon5 = new javax.swing.JLabel();
+        icon6 = new javax.swing.JLabel();
+        icon2 = new javax.swing.JLabel();
+        icon1 = new javax.swing.JLabel();
         existingGamePanel = new javax.swing.JPanel();
-        fileChooser = new javax.swing.JFileChooser();
         chooseFile = new javax.swing.JLabel();
+
+        jLabel1.setText("jLabel1");
+
+        jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -137,7 +160,6 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             }
         });
 
-        photo.setIcon(new javax.swing.ImageIcon("C:\\Users\\dicks\\OneDrive\\Έγγραφα\\NetBeansProjects\\SelectPlayers\\src\\main\\java\\images\\monopoly.jpg")); // NOI18N
         photo.setText("jLabel1");
 
         javax.swing.GroupLayout firstPanelLayout = new javax.swing.GroupLayout(firstPanel);
@@ -153,7 +175,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             .addGroup(firstPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         firstPanelLayout.setVerticalGroup(
             firstPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +212,8 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         selectPawn.setText("Select pawn for the player:");
 
         buttonGroup.add(pawn1);
-        pawn1.setText("Pawn1");
+        pawn1.setToolTipText("");
+        pawn1.setActionCommand("icon1");
         pawn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pawn1ActionPerformed(evt);
@@ -198,19 +221,24 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         });
 
         buttonGroup.add(pawn2);
-        pawn2.setText("Pawn2");
+        pawn2.setActionCommand("icon2");
+        pawn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pawn2ActionPerformed(evt);
+            }
+        });
 
         buttonGroup.add(pawn3);
-        pawn3.setText("Pawn3");
+        pawn3.setActionCommand("icon3");
 
         buttonGroup.add(pawn4);
-        pawn4.setText("Pawn4");
+        pawn4.setActionCommand("icon4");
 
         buttonGroup.add(pawn5);
-        pawn5.setText("Pawn5");
+        pawn5.setActionCommand("icon5");
 
         buttonGroup.add(pawn6);
-        pawn6.setText("Pawn6");
+        pawn6.setActionCommand("icon6");
 
         humanButton.setText("Human Player");
         humanButton.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -239,6 +267,18 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         readyLabel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         readyLabel.setText("You are ready to play!");
 
+        icon3.setIcon(new ImageIcon("Icons/pawn3.png"));
+
+        icon4.setIcon(new ImageIcon("Icons/pawn4.png"));
+
+        icon5.setIcon(new ImageIcon("Icons/pawn5.png"));
+
+        icon6.setIcon(new ImageIcon("Icons/pawn6.png"));
+
+        icon2.setIcon(new ImageIcon("Icons/pawn2.png"));
+
+        icon1.setIcon(new ImageIcon("Icons/pawn1.png"));
+
         javax.swing.GroupLayout newGamePanelLayout = new javax.swing.GroupLayout(newGamePanel);
         newGamePanel.setLayout(newGamePanelLayout);
         newGamePanelLayout.setHorizontalGroup(
@@ -259,9 +299,16 @@ public class SelectPlayersUI extends javax.swing.JFrame {
                                     .addGroup(newGamePanelLayout.createSequentialGroup()
                                         .addGap(10, 10, 10)
                                         .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(pawn3)
-                                            .addComponent(pawn1)
-                                            .addComponent(pawn5)))))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newGamePanelLayout.createSequentialGroup()
+                                                .addComponent(pawn5)
+                                                .addGap(0, 0, 0))
+                                            .addComponent(pawn1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(pawn3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(icon1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(icon3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(icon5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(newGamePanelLayout.createSequentialGroup()
                                 .addComponent(typeNumber)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -271,17 +318,21 @@ public class SelectPlayersUI extends javax.swing.JFrame {
                             .addGroup(newGamePanelLayout.createSequentialGroup()
                                 .addComponent(humanButton)
                                 .addGap(85, 85, 85)
-                                .addComponent(addPlayer)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(pawn2)
-                                .addComponent(pawn4, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(pawn6)))
+                                .addComponent(addPlayer))))
                     .addGroup(newGamePanelLayout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pawn4)
+                    .addComponent(pawn6)
+                    .addComponent(pawn2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(icon2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(icon4, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(icon6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newGamePanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(readyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -304,35 +355,39 @@ public class SelectPlayersUI extends javax.swing.JFrame {
                     .addComponent(typeName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(playersName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectPawn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pawn1)
-                    .addComponent(pawn2))
-                .addGap(18, 18, 18)
-                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(humanButton)
-                    .addComponent(addPlayer))
-                .addGap(3, 3, 3)
-                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pawn3)
-                    .addComponent(pawn4))
-                .addGap(18, 18, 18)
-                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pawn5)
-                    .addComponent(pawn6))
-                .addGap(39, 39, 39)
+                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newGamePanelLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(humanButton)
+                            .addComponent(addPlayer)))
+                    .addGroup(newGamePanelLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(icon2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(icon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pawn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pawn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(icon3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pawn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pawn4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(icon4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(icon6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(icon5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pawn5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pawn6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         existingGamePanel.setBackground(new java.awt.Color(51, 204, 255));
         existingGamePanel.setPreferredSize(new java.awt.Dimension(703, 367));
-
-        fileChooser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fileChooserActionPerformed(evt);
-            }
-        });
 
         chooseFile.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         chooseFile.setText("Choose your file to continue the game:");
@@ -342,31 +397,25 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         existingGamePanelLayout.setHorizontalGroup(
             existingGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(existingGamePanelLayout.createSequentialGroup()
-                .addGroup(existingGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
-                    .addGroup(existingGamePanelLayout.createSequentialGroup()
-                        .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(298, Short.MAX_VALUE))
         );
         existingGamePanelLayout.setVerticalGroup(
             existingGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingGamePanelLayout.createSequentialGroup()
                 .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(firstPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
+            .addComponent(firstPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(newGamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(existingGamePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
+                .addComponent(existingGamePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -439,26 +488,51 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             
         
         String name;
+        JLabel pawn = new JLabel();
         boolean nonHuman;
         name = playersName.getText();
         nonHuman = humanButton.isSelected();
-        if(nonHuman){
-            Player player = new NonHumanPlayer(name, players);
-            players.add(player);
-        }
-        else{
-            Player player = new Player(name, players);
-            players.add(player);
-            
-            
-        }
         
+       
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
             if (button.isSelected()) {
-                 System.out.println(button.getText());
-                 button.setVisible(false);
+                 
+                 button.setEnabled(false);
+                 if(button.getActionCommand().equals("icon1")){
+                     pawn = icon1;
+                     
+                     
+                 }
+                 else if(button.getActionCommand().equals("icon2")){
+                     pawn = icon2;
+                     
+                 }
+                 else if(button.getActionCommand().equals("icon3")){
+                     pawn = icon3;
+                     
+                 }
+                 else if(button.getActionCommand().equals("icon4")){
+                     pawn = icon4;
+                 }
+                 else if(button.getActionCommand().equals("icon5")){
+                     pawn = icon5;
+                 }
+                 else if(button.getActionCommand().equals("icon6")){
+                     pawn = icon6;
+                 }
+
+                 buttonGroup.clearSelection();
+                 
+                 if(nonHuman){
+                    Player player = new NonHumanPlayer(name, players,pawn);
+                    players.add(player);
+                 }
+                 else{
+                    Player player = new Player(name, players,pawn);
+                    players.add(player);
+                 }
             }
         }
 
@@ -495,8 +569,15 @@ public class SelectPlayersUI extends javax.swing.JFrame {
     private void existingGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_existingGameButtonActionPerformed
         // TODO add your handling code here:
 
-        existingGamePanel.setVisible(true);
+        //existingGamePanel.setVisible(true);
+        
         firstPanel.setVisible(false);
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        ControlPanel panel = new ControlPanel(players);
+        panel.loadGame(f);
+        
     }//GEN-LAST:event_existingGameButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -509,16 +590,12 @@ public class SelectPlayersUI extends javax.swing.JFrame {
 
     private void pawn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_pawn1ActionPerformed
 
-    private void fileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileChooserActionPerformed
+    private void pawn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn2ActionPerformed
         // TODO add your handling code here:
-        
-        ControlPanel panel = new ControlPanel(players);
-        panel.loadGame();
-        fileChooser.setVisible(false);
-        
-    }//GEN-LAST:event_fileChooserActionPerformed
+    }//GEN-LAST:event_pawn2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -563,10 +640,17 @@ public class SelectPlayersUI extends javax.swing.JFrame {
     private javax.swing.JLabel errorLabel;
     private javax.swing.JButton existingGameButton;
     private javax.swing.JPanel existingGamePanel;
-    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JPanel firstPanel;
     private javax.swing.JToggleButton humanButton;
+    private javax.swing.JLabel icon1;
+    private javax.swing.JLabel icon2;
+    private javax.swing.JLabel icon3;
+    private javax.swing.JLabel icon4;
+    private javax.swing.JLabel icon5;
+    private javax.swing.JLabel icon6;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JButton newGameButton;
     private javax.swing.JPanel newGamePanel;

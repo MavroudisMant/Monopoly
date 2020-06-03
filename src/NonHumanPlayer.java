@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JLabel;
 
 public class NonHumanPlayer extends Player {
 	
-	public NonHumanPlayer(String name, ArrayList<Player> players) {
-		super(name, players);
+	public NonHumanPlayer(String name, ArrayList<Player> players,JLabel pawn) {
+		super(name, players,pawn);
 	}
 
 	public void playTurn(ControlPanel panel) {

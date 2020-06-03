@@ -93,9 +93,9 @@ public class ControlPanel extends javax.swing.JFrame {
 	this.playAgain = playAgain;
     } 
     
-    public void loadGame(){
+    public void loadGame(File f){
         try {
-            FileInputStream fins = new FileInputStream("./SavedGames/sad.ser");
+            FileInputStream fins = new FileInputStream(f);
             ObjectInputStream dins = new ObjectInputStream(fins);
             this.players = (ArrayList<Player>) dins.readObject();
             this.board.dispose();
@@ -387,7 +387,7 @@ public class ControlPanel extends javax.swing.JFrame {
         this.board = new Board(players);
         ArrayList<Player> newPlayers = new ArrayList<>();
         for(Player p: players){
-           newPlayers.add(new Player(p.getName(), players));
+           newPlayers.add(new Player(p.getName(), players,p.getPawn()));
         }
         this.players = newPlayers;
         this.initializeBoard();

@@ -27,7 +27,7 @@ public class ChooseWinner {
     
     public void gameFinishedByThePlayers(ArrayList<Player> players){
         int max = checkTotalValue(players.get(0));
-        Player winner = new Player(players.get(0).getName(),players);
+        Player winner = new Player(players.get(0).getName(),players,players.get(0).getPawn());
         
         for (Player player : players) {
             
