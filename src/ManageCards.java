@@ -7,6 +7,7 @@
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 
 
@@ -14,6 +15,7 @@ public class ManageCards extends javax.swing.JFrame {
 
     private ArrayList<PropertyCard> collection = new ArrayList<>();
     private Player currentPlayer ;
+    
     
     public ManageCards(ArrayList<PropertyCard> playerCollection,Player player) {
         
@@ -30,6 +32,8 @@ public class ManageCards extends javax.swing.JFrame {
         }
         playerCollectionList.setModel(listModel);
         
+    
+        
         
         
         
@@ -40,6 +44,8 @@ public class ManageCards extends javax.swing.JFrame {
         
         
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +59,7 @@ public class ManageCards extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         playerCollectionList = new javax.swing.JList<>();
         cardName = new javax.swing.JLabel();
-        tradeButton = new javax.swing.JButton();
+        mortgageButton = new javax.swing.JButton();
         buildButton = new javax.swing.JButton();
         sellButton = new javax.swing.JButton();
 
@@ -76,13 +82,26 @@ public class ManageCards extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(playerCollectionList);
 
-        cardName.setText("jLabel2");
-
-        tradeButton.setText("Trade");
+        mortgageButton.setText("Mortgage");
+        mortgageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mortgageButtonActionPerformed(evt);
+            }
+        });
 
         buildButton.setText("Build");
+        buildButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buildButtonActionPerformed(evt);
+            }
+        });
 
         sellButton.setText("Sell");
+        sellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sellButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,11 +116,11 @@ public class ManageCards extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(sellButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(buildButton)
-                        .addGap(46, 46, 46)
-                        .addComponent(tradeButton)
-                        .addGap(29, 29, 29))))
+                        .addGap(39, 39, 39)
+                        .addComponent(mortgageButton)
+                        .addGap(36, 36, 36))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +129,7 @@ public class ManageCards extends javax.swing.JFrame {
                 .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tradeButton)
+                    .addComponent(mortgageButton)
                     .addComponent(buildButton)
                     .addComponent(sellButton))
                 .addGap(57, 57, 57))
@@ -128,48 +147,97 @@ public class ManageCards extends javax.swing.JFrame {
     private void playerCollectionListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerCollectionListValueChanged
         // TODO add your handling code here:
         
-        cardName.setText(playerCollectionList.getSelectedValue());
-    }//GEN-LAST:event_playerCollectionListValueChanged
-    
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageCards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageCards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageCards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageCards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
+        int index = playerCollectionList.getSelectedIndex();
+        PropertyCard card = collection.get(index);
         
-    }
+        cardName.setText(playerCollectionList.getSelectedValue());
+        if(card.isInMortgage()){
+            mortgageButton.setText("Get off mortgage");
+         
+        }
+        else{
+            mortgageButton.setText("Put in mortgage");
+            
+        }
+    }//GEN-LAST:event_playerCollectionListValueChanged
+
+    private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
+        // TODO add your handling code here:
+        Player buyer = null;
+        PropertyCard card;
+        int index;
+        boolean flag = true;
+        String name ;
+       
+         name = JOptionPane.showInputDialog(null,"Sell card to player:");
+        
+        for (Player player : currentPlayer.getPlayers()) {
+            
+            if(player.getName().equals(name)){
+                flag = false;
+                buyer = player;
+            }
+            
+        }
+        if(flag){
+            JOptionPane.showMessageDialog(null, "Incorrect name");
+            
+        }
+        
+        
+        index = playerCollectionList.getSelectedIndex();
+        card = collection.get(index);
+        currentPlayer.sellCard(card,buyer);
+        
+        
+        
+    }//GEN-LAST:event_sellButtonActionPerformed
+
+    private void buildButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildButtonActionPerformed
+        // TODO add your handling code here:
+        
+        int index = playerCollectionList.getSelectedIndex();
+        PropertyCard card = collection.get(index);
+        
+        int quantity = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the number of the houses you want to build:"));
+        System.out.println("First"+card.getHouses());
+        currentPlayer.buildHouse(card, quantity);
+        JOptionPane.showMessageDialog(null, "Houses built");
+        System.out.println("Then"+card.getHouses());
+        
+        
+        
+    }//GEN-LAST:event_buildButtonActionPerformed
+
+    private void mortgageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mortgageButtonActionPerformed
+        // TODO add your handling code here:
+        
+        int index = playerCollectionList.getSelectedIndex();
+        PropertyCard card = collection.get(index);
+        
+        if(card.isInMortgage()){
+            card.outOfMortgage(currentPlayer);
+            JOptionPane.showMessageDialog(null, "Card is not in mortgage now");
+        }
+        else{
+            card.mortgageCard(currentPlayer);
+            JOptionPane.showMessageDialog(null, "Card is in mortgage now");
+            
+        }
+        
+        
+    }//GEN-LAST:event_mortgageButtonActionPerformed
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buildButton;
     private javax.swing.JLabel cardName;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton mortgageButton;
     private javax.swing.JList<String> playerCollectionList;
     private javax.swing.JButton sellButton;
-    private javax.swing.JButton tradeButton;
     // End of variables declaration//GEN-END:variables
 }

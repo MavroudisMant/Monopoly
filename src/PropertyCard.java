@@ -105,6 +105,10 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
 			return "PropertyCard";
 		}
                 
+                public void setHouses(int houses){
+                    this.houses = houses;
+                }
+                
         @Override
                 public String toString(){
                     return this.getName();

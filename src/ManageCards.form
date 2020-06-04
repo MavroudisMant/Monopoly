@@ -33,11 +33,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="sellButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="58" max="32767" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                       <Component id="buildButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Component id="tradeButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="mortgageButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -50,7 +50,7 @@
               <Component id="cardName" min="-2" pref="133" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="tradeButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mortgageButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buildButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="sellButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -82,24 +82,30 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="cardName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel2"/>
-      </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="tradeButton">
+    <Component class="javax.swing.JButton" name="mortgageButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Trade"/>
+        <Property name="text" type="java.lang.String" value="Mortgage"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mortgageButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buildButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Build"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buildButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="sellButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sell"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sellButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
