@@ -98,7 +98,7 @@ public class Player implements Serializable{
 	//return true if the player is able to buy the card
 	//return false if he can not buy it
 	public boolean buyCard(PropertyCard card) {
-		if(this.money>= card.getPrice()) {
+		if(this.money>= card.getPrice() && !this.isCollectionFull(card)) {
 			this.money -= card.getPrice(); 
 			propertyCards.add(card);
             card.setOwner(this);
@@ -132,6 +132,18 @@ public class Player implements Serializable{
 			JOptionPane.showMessageDialog(null, "You can not aford to build these houses");
 		}
 	}
+        
+        public void sellCard(PropertyCard card,Player player){
+            if(player.getMoney()>=card.getPrice()){
+                this.money += card.getPrice();
+                this.money += card.getHousePrice() * card.getHouses();
+                card.setHouses(0);
+                this.propertyCards.remove(card);
+                
+                player.SetMoney(player.getMoney()-card.getPrice());
+                player.getCards().add(card);
+            }
+        }
 
 	public ArrayList<PropertyCard> getCards() {
 		return propertyCards;
@@ -234,5 +246,9 @@ public class Player implements Serializable{
         
         public String getType() {
         	return "HumanPlayer";
+        }
+        
+        public void SetMoney(int money) {
+            this.money = money;
         }
 }
