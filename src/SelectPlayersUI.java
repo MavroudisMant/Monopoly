@@ -488,7 +488,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             
         
         String name;
-        JLabel pawn = new JLabel();
+        
         boolean nonHuman;
         name = playersName.getText();
         nonHuman = humanButton.isSelected();
@@ -498,29 +498,31 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             AbstractButton button = buttons.nextElement();
 
             if (button.isSelected()) {
-                 
+                 JLabel pawn ;
                  button.setEnabled(false);
                  if(button.getActionCommand().equals("icon1")){
-                     pawn = icon1;
-                     
-                     
+                     pawn = new JLabel(new ImageIcon("Icons/pawn1.png"));
+ 
                  }
                  else if(button.getActionCommand().equals("icon2")){
-                     pawn = icon2;
+                     pawn = new JLabel(new ImageIcon("Icons/pawn2.png"));
                      
                  }
                  else if(button.getActionCommand().equals("icon3")){
-                     pawn = icon3;
+                     pawn = new JLabel(new ImageIcon("Icons/pawn3.png"));
                      
                  }
                  else if(button.getActionCommand().equals("icon4")){
-                     pawn = icon4;
+                     pawn = new JLabel(new ImageIcon("Icons/pawn4.png"));
                  }
                  else if(button.getActionCommand().equals("icon5")){
-                     pawn = icon5;
+                     pawn = new JLabel(new ImageIcon("Icons/pawn5.png"));
                  }
                  else if(button.getActionCommand().equals("icon6")){
-                     pawn = icon6;
+                     pawn = new JLabel(new ImageIcon("Icons/pawn6.png"));
+                 }
+                 else{
+                     pawn = new JLabel();
                  }
 
                  buttonGroup.clearSelection();

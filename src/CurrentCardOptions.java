@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,16 +19,23 @@ public class CurrentCardOptions extends javax.swing.JFrame {
         this.currentPlayer = player;
         initComponents();
         this.setVisible(true);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         if(card.getOwner() == null){
             ownedPanel.setVisible(false);
             unownedPanel.setVisible(true);
             
             
         }
+        else if(card.getOwner().equals(currentPlayer)){
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "This property card belongs to you");
+            
+            
+        }
         else{
             ownedPanel.setVisible(true);
             unownedPanel.setVisible(false);
-            ownerName.setText("This card belongs to" + card.getOwner());
+            ownerName.setText("This card belongs to player " + card.getOwner().getName());
             
         }
         
@@ -175,11 +185,28 @@ public class CurrentCardOptions extends javax.swing.JFrame {
 
     private void payRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payRentActionPerformed
         // TODO add your handling code here:
+        
+        if(currentPlayer.payPlayer(currentCard.getOwner(),currentCard.calculateCharge())){
+            JOptionPane.showMessageDialog(null, "Rent paid succesfully");
+            this.dispose();
+        }
+        else{
+            this.dispose();
+            ManageCards managecards = new ManageCards(currentPlayer.getCards(),currentPlayer);
+            
+            
+        }
       
     }//GEN-LAST:event_payRentActionPerformed
 
     private void buyCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyCardActionPerformed
         // TODO add your handling code here:
+        if(currentPlayer.buyCard(currentCard)){
+        JOptionPane.showMessageDialog(null, "Card bought sucessfully");
+        this.dispose();
+        }
+        
+        
     }//GEN-LAST:event_buyCardActionPerformed
 
     

@@ -70,12 +70,15 @@ public class Player implements Serializable{
 	
 	//return true if the player is able to pay
 	//return false if he can not pay
-	public void payPlayer(Player player, int money) {
+	public boolean payPlayer(Player player, int money) {
 		if(this.money>=money) {
 			this.money -= money; 
 			player.getPaid(money);
+                        return true;
+                        
 		}else {
 			JOptionPane.showMessageDialog(null, "You don't have enough money to pay the rent");
+                        return false;
 		}
 		
 	}
@@ -95,9 +98,10 @@ public class Player implements Serializable{
 	//return true if the player is able to buy the card
 	//return false if he can not buy it
 	public boolean buyCard(PropertyCard card) {
-		if(this.money>=card.getPrice()) {
+		if(this.money>= card.getPrice()) {
 			this.money -= card.getPrice(); 
 			propertyCards.add(card);
+            card.setOwner(this);
 			return true;
 		}else {
 			JOptionPane.showMessageDialog(null, "You don't have enough money to buy this property");
@@ -198,8 +202,8 @@ public class Player implements Serializable{
 	
 
         public int[] rollDiceAction() {
-        	int firstDie = 10;//ThreadLocalRandom.current().nextInt(1, 7);     	
-        	int secondDie = 0;//ThreadLocalRandom.current().nextInt(1,7);
+        	int firstDie = ThreadLocalRandom.current().nextInt(1, 7);     	
+        	int secondDie = ThreadLocalRandom.current().nextInt(1,7);
         	int[] dice = {firstDie, secondDie};
         	return dice;
         }
