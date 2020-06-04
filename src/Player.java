@@ -124,6 +124,7 @@ public class Player implements Serializable{
 	public void buildHouse(PropertyCard card, int quantity) {
 		if(quantity*card.getHousePrice() < this.money) {
 			card.addHouse(quantity);
+			this.money-= quantity*card.getHousePrice();
 		}
 		else if(quantity==1){
 			JOptionPane.showMessageDialog(null, "You can not aford to build a house");
@@ -184,9 +185,9 @@ public class Player implements Serializable{
 		return board;
 	}
         
-        public int countSameTeamCards(PropertyCard card){
+        public int countSameTeamCards(Player player, PropertyCard card){
             int sum=0;
-            for(PropertyCard c: getCards()){
+            for(PropertyCard c: player.getCards()){
                 if(c.getTeam().equals(card.getTeam())){
                     sum++;                   
                 }
@@ -197,7 +198,7 @@ public class Player implements Serializable{
         }
         
         public boolean isCollectionFull(PropertyCard card){
-            return countSameTeamCards(card) == card.getTeamSize();
+            return countSameTeamCards(this, card) == card.getTeamSize();
         }
 	
 

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class PropertyCard extends BoardBlock{
+public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>{
 	private int price;
 	private int housePrice;
 	private Player owner;
@@ -45,7 +45,12 @@ public class PropertyCard extends BoardBlock{
 	
 	public void blockAction(Player player) {
 		if(!inMortgage) {
+			if(player.getType().equals("HumanPlayer")) {
                     CurrentCardOptions currentCard = new CurrentCardOptions(this,player);
+			}
+			else {
+				((NonHumanPlayer)player).propertyAction(this);
+			}
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "This card is in mortgage");
@@ -105,4 +110,13 @@ public class PropertyCard extends BoardBlock{
                     return this.getName();
                     
                 }
+
+		@Override
+		public int compareTo(PropertyCard o) {
+			return ((Integer)this.housePrice).compareTo(o.housePrice);
+		}
+		
+		public boolean hasSpaceForHouse() {
+			return houses<5;
+		}
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JLabel;
 
@@ -20,6 +21,7 @@ public class NonHumanPlayer extends Player {
 		if(!isInJail()) {
 			int[] dice = rollDiceAction();
 			movePlayer(dice[0]+dice[1], true);
+			checkBuildHouse();
 			panel.setCurrentPlayerIndex(endRoundAction());
 			panel.updateControlPanel();
 		}
@@ -34,8 +36,14 @@ public class NonHumanPlayer extends Player {
 		return true;
 	}
 	
-	public void checkBuyCard(PropertyCard card) {
-		boolean almostComplete = checkCollection(card);
+	/*
+	 * If checkCollection returns true for this player he buys the card even if he needs to sell something.
+	 * If checkCollection returns false for this player then it is called for every other Player. If it returns
+	 * true and and the Player can afford it he buys it. If it returns false again then the player only buys it
+	 * if after the purchase he has at least 100E.
+	 */
+	private void checkBuyCard(PropertyCard card) {
+		boolean almostComplete = checkCollection(this, card);
 		if(almostComplete) {
 			boolean boughtCard = buyCard(card);
 			if(!boughtCard) {
@@ -46,12 +54,68 @@ public class NonHumanPlayer extends Player {
 			}
 		}
 		else {
-			
+			boolean opponentAlmostComplete = false;
+			for(Player p: getPlayers()) {
+				if(checkCollection(p,card)) {
+					opponentAlmostComplete = true;
+					break;
+				}
+			}
+			if(opponentAlmostComplete) {
+				buyCard(card);
+			}
+			else {
+				if(getMoney()-card.getPrice()>=100) {
+					buyCard(card);
+				}
+			}
 		}
 	}
 	
-	public void checkBuildHouse(PropertyCard card) {
-		
+	//A house will be built on the most expensive properties
+	private void checkBuildHouse() {
+		double moneyToSpend = calculateMoneyToSpend();
+		if(moneyToSpend > 0) {
+			ArrayList<PropertyCard> cardsToBuildOn = new ArrayList<>();
+			for(PropertyCard c: getCards()) {
+				if(isCollectionFull(c)) {
+					cardsToBuildOn.add(c);
+				}
+			}
+			//Sorts so that the most expensive properties are at the start
+			Collections.sort(cardsToBuildOn, Collections.reverseOrder());
+			int moneySpent = 0;
+			for(PropertyCard c: cardsToBuildOn) {
+				while(c.getHousePrice()+moneySpent<=moneyToSpend && c.hasSpaceForHouse()) {
+					buildHouse(c,1);
+					moneySpent+=c.getHousePrice();
+				}
+			}
+		}
+	}
+	
+	//returns the amount of money the player can spent on building houses
+	private double calculateMoneyToSpend() {
+		double moneyToSpend = getMoney();
+		if(moneyToSpend < 300) {
+			moneyToSpend = 0;//We do not want the player to go below 200E
+		}
+		else if(moneyToSpend < 500) {
+			moneyToSpend *= 0.34;
+		}
+		else if(moneyToSpend < 1000) {
+			moneyToSpend*= 0.4;
+		}
+		else if(moneyToSpend < 1500) {
+			moneyToSpend*= 0.5;
+		}
+		else if(moneyToSpend < 2000) {
+			moneyToSpend*= 0.6;
+		}
+		else {
+			moneyToSpend*= 0.7;
+		}
+		return moneyToSpend;
 	}
 	
 	private void checkGetOutOfJail(ControlPanel panel) {
@@ -107,12 +171,16 @@ public class NonHumanPlayer extends Player {
 		}
 	}
 	
-	//return an ArrayList with the names from the teams that are missing only one card
-	public boolean checkCollection(PropertyCard card) {
+	//returns true if with this cards a collection is completed
+	//returns false otherwise
+	public boolean checkCollection(Player player, PropertyCard card) {
 		boolean almostComplete = false;
-		if(getCards().contains(card)) {
-			if(countSameTeamCards(card) == card.getTeamSize()-1) {
-				almostComplete = true;
+		for(PropertyCard c: player.getCards()) {
+			if(c.getTeam().equals(card.getTeam())) {
+				if(countSameTeamCards(player, card) == card.getTeamSize()-1) {
+					almostComplete = true;
+					break;
+				}
 			}
 		}
 		return almostComplete;
@@ -120,5 +188,14 @@ public class NonHumanPlayer extends Player {
 	
 	public String getType() {
 		return "NonHumanPlayer";
+	}
+	
+	public void propertyAction(PropertyCard card) {
+		if(card.getOwner()==null) {
+			checkBuyCard(card);
+		}
+		else {
+			payPlayer(card.getOwner(),card.calculateCharge());
+		}
 	}
 }
