@@ -29,8 +29,9 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
 		return(rent+houses*housePrice);
 	}
 	
-	public void addHouse(int quantity) {
-		houses+=quantity;
+	public void addHouse() {
+		houses++;
+                
 	}
 	
 	public void mortgageCard(Player owner) {

@@ -62,6 +62,7 @@ public class ManageCards extends javax.swing.JFrame {
         mortgageButton = new javax.swing.JButton();
         buildButton = new javax.swing.JButton();
         sellButton = new javax.swing.JButton();
+        housesLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +104,8 @@ public class ManageCards extends javax.swing.JFrame {
             }
         });
 
+        housesLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,10 +117,16 @@ public class ManageCards extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cardName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(sellButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(buildButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(sellButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(buildButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(housesLabel)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(39, 39, 39)
                         .addComponent(mortgageButton)
                         .addGap(36, 36, 36))))
@@ -127,6 +136,8 @@ public class ManageCards extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(housesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mortgageButton)
@@ -159,6 +170,7 @@ public class ManageCards extends javax.swing.JFrame {
             mortgageButton.setText("Put in mortgage");
             
         }
+        housesLabel.setText("Houses built:"+ card.getHouses());
     }//GEN-LAST:event_playerCollectionListValueChanged
 
     private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
@@ -199,11 +211,23 @@ public class ManageCards extends javax.swing.JFrame {
         int index = playerCollectionList.getSelectedIndex();
         PropertyCard card = collection.get(index);
         
-        int quantity = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the number of the houses you want to build:"));
-        System.out.println("First"+card.getHouses());
-        currentPlayer.buildHouse(card, quantity);
-        JOptionPane.showMessageDialog(null, "Houses built");
-        System.out.println("Then"+card.getHouses());
+        
+        
+        if(card.hasSpaceForHouse()){
+            card.getOwner().buildHouse(card);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"You can't build more houses");
+        }
+        
+        housesLabel.setText("Houses built:"+ card.getHouses());
+        
+        
+        
+       
+        
+        
+        
         
         
         
@@ -235,6 +259,7 @@ public class ManageCards extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buildButton;
     private javax.swing.JLabel cardName;
+    private javax.swing.JLabel housesLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mortgageButton;
     private javax.swing.JList<String> playerCollectionList;

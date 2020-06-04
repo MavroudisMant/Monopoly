@@ -87,7 +87,7 @@ public class NonHumanPlayer extends Player {
 			int moneySpent = 0;
 			for(PropertyCard c: cardsToBuildOn) {
 				while(c.getHousePrice()+moneySpent<=moneyToSpend && c.hasSpaceForHouse()) {
-					buildHouse(c,1);
+					buildHouse(c);
 					moneySpent+=c.getHousePrice();
 				}
 			}

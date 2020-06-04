@@ -121,13 +121,10 @@ public class Player implements Serializable{
 		return getOutOfJailCards;
 	}
 
-	public void buildHouse(PropertyCard card, int quantity) {
-		if(quantity*card.getHousePrice() < this.money) {
-			card.addHouse(quantity);
-			this.money-= quantity*card.getHousePrice();
-		}
-		else if(quantity==1){
-			JOptionPane.showMessageDialog(null, "You can not aford to build a house");
+	public void buildHouse(PropertyCard card) {
+		if(card.getHousePrice() <= this.money) {
+			card.addHouse();
+			this.money -= card.getHousePrice();
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "You can not aford to build these houses");
@@ -141,7 +138,7 @@ public class Player implements Serializable{
                 card.setHouses(0);
                 this.propertyCards.remove(card);
                 
-                player.SetMoney(player.getMoney()-card.getPrice());
+                player.getPaid(-card.getPrice());
                 player.getCards().add(card);
             }
         }
@@ -249,7 +246,5 @@ public class Player implements Serializable{
         	return "HumanPlayer";
         }
         
-        public void SetMoney(int money) {
-            this.money = money;
-        }
+        
 }
