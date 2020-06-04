@@ -28,22 +28,30 @@ public class NonHumanPlayer extends Player {
 		}
 	}
 	
-	private void checkPayment(int debt) {
-		
+	//Returns true if the player sold something and now can afford his desired action
+	//Returns false if he could not sell anything so he can not complete his desired action
+	private boolean checkPayment(int debt) {
+		return true;
 	}
 	
 	public void checkBuyCard(PropertyCard card) {
-		
+		boolean almostComplete = checkCollection(card);
+		if(almostComplete) {
+			boolean boughtCard = buyCard(card);
+			if(!boughtCard) {
+				boolean madeChanges = checkPayment(card.getPrice());
+				if(madeChanges) {
+					buyCard(card);
+				}
+			}
+		}
+		else {
+			
+		}
 	}
 	
 	public void checkBuildHouse(PropertyCard card) {
-		ArrayList<String> almostComplete = checkCollection();
-		if(almostComplete.contains(card.getTeam())) {
-			boolean boughtCard = buyCard(card);
-			if(!boughtCard) {
-//				checkPayment(card.getMoney());
-			}
-		}
+		
 	}
 	
 	private void checkGetOutOfJail(ControlPanel panel) {
@@ -100,14 +108,11 @@ public class NonHumanPlayer extends Player {
 	}
 	
 	//return an ArrayList with the names from the teams that are missing only one card
-	public ArrayList<String> checkCollection() {
-		ArrayList<String> almostComplete = new ArrayList<>();
-		for(PropertyCard o: getCards()) {
-			//prevents from putting a team twice in the list
-			if(!almostComplete.contains(o.getTeam())) { 
-				if(countSameTeamCards(o) == o.getTeamSize()-1) {
-					almostComplete.add(o.getTeam());
-				}
+	public boolean checkCollection(PropertyCard card) {
+		boolean almostComplete = false;
+		if(getCards().contains(card)) {
+			if(countSameTeamCards(card) == card.getTeamSize()-1) {
+				almostComplete = true;
 			}
 		}
 		return almostComplete;

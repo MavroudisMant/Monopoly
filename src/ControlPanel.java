@@ -59,7 +59,7 @@ public class ControlPanel extends javax.swing.JFrame {
     	for(PropertyCard card: players.get(currentPlayerIndex).getCards())
     	{
     		//System.out.print(card);
-    		listModel.addElement(card.toString());
+    		listModel.addElement(card.getName()+", "+card.getTeam());
     	}
     	playerCards.setModel(listModel);
         if(players.get(currentPlayerIndex).getType().equals("NonHumanPlayer")){
@@ -359,7 +359,7 @@ public class ControlPanel extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             JFileChooser fc = new JFileChooser();
-            fc.setCurrentDirectory(new File("./SavedGames"));
+            fc.setCurrentDirectory(new File("./saved games"));
             int returnVal = fc.showSaveDialog(frame);
             if(returnVal == JFileChooser.APPROVE_OPTION){
                 FileOutputStream outFile = new FileOutputStream(fc.getSelectedFile()+".ser");

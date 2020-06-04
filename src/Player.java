@@ -95,8 +95,8 @@ public class Player implements Serializable{
 	//return true if the player is able to buy the card
 	//return false if he can not buy it
 	public boolean buyCard(PropertyCard card) {
-		if(this.money>=money) {
-//			this.money -= card.getPrice(); 
+		if(this.money>=card.getPrice()) {
+			this.money -= card.getPrice(); 
 			propertyCards.add(card);
 			return true;
 		}else {
@@ -118,7 +118,15 @@ public class Player implements Serializable{
 	}
 
 	public void buildHouse(PropertyCard card, int quantity) {
-		
+		if(quantity*card.getHousePrice() < this.money) {
+			card.addHouse(quantity);
+		}
+		else if(quantity==1){
+			JOptionPane.showMessageDialog(null, "You can not aford to build a house");
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "You can not aford to build these houses");
+		}
 	}
 
 	public ArrayList<PropertyCard> getCards() {
