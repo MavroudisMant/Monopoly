@@ -99,4 +99,10 @@ public class PropertyCard extends BoardBlock{
 		public String getType() {
 			return "PropertyCard";
 		}
+                
+        @Override
+                public String toString(){
+                    return this.getName();
+                    
+                }
 }

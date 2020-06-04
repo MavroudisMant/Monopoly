@@ -21,13 +21,20 @@ public class ManageCards extends javax.swing.JFrame {
         this.currentPlayer = player;
         initComponents();
         this.setVisible(true);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<String> listModel = new DefaultListModel();
         for (int i = 0; i < collection.size(); i++)
         {
-            listModel.addElement(collection.get(i));
+            listModel.addElement(collection.get(i).toString());
         }
         playerCollectionList.setModel(listModel);
+        
+        
+        
+        
+        
+        
         
         
         
@@ -52,6 +59,7 @@ public class ManageCards extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        playerCollectionList.setToolTipText("");
         playerCollectionList.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 playerCollectionListAncestorAdded(evt);
