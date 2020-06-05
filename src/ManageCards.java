@@ -31,6 +31,7 @@ public class ManageCards extends javax.swing.JFrame {
             listModel.addElement(collection.get(i).toString());
         }
         playerCollectionList.setModel(listModel);
+        moneyLabel.setText( currentPlayer.getMoney() + "E");
         
     
         
@@ -63,6 +64,8 @@ public class ManageCards extends javax.swing.JFrame {
         buildButton = new javax.swing.JButton();
         sellButton = new javax.swing.JButton();
         housesLabel = new javax.swing.JLabel();
+        moneyLabel = new javax.swing.JLabel();
+        removeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,28 +109,38 @@ public class ManageCards extends javax.swing.JFrame {
 
         housesLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
+        removeButton.setText("Sell house");
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cardName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cardName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(moneyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(168, 168, 168))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(sellButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                .addComponent(buildButton))
+                                .addGap(49, 49, 49)
+                                .addComponent(housesLabel))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addComponent(housesLabel)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(39, 39, 39)
+                                .addComponent(sellButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buildButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(removeButton)))
+                        .addGap(10, 10, 10)
                         .addComponent(mortgageButton)
                         .addGap(36, 36, 36))))
         );
@@ -135,14 +148,17 @@ public class ManageCards extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cardName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(moneyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(housesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mortgageButton)
                     .addComponent(buildButton)
-                    .addComponent(sellButton))
+                    .addComponent(sellButton)
+                    .addComponent(removeButton))
                 .addGap(57, 57, 57))
         );
 
@@ -171,6 +187,7 @@ public class ManageCards extends javax.swing.JFrame {
             
         }
         housesLabel.setText("Houses built:"+ card.getHouses());
+        moneyLabel.setText( currentPlayer.getMoney() + "E");
     }//GEN-LAST:event_playerCollectionListValueChanged
 
     private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
@@ -180,6 +197,7 @@ public class ManageCards extends javax.swing.JFrame {
         int index;
         boolean flag = true;
         String name ;
+        int price = 0;
        
          name = JOptionPane.showInputDialog(null,"Sell card to player:");
         
@@ -188,6 +206,8 @@ public class ManageCards extends javax.swing.JFrame {
             if(player.getName().equals(name)){
                 flag = false;
                 buyer = player;
+                price= Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the price you want to sell the card:"));
+                
             }
             
         }
@@ -199,7 +219,8 @@ public class ManageCards extends javax.swing.JFrame {
         
         index = playerCollectionList.getSelectedIndex();
         card = collection.get(index);
-        currentPlayer.sellCard(card,buyer);
+        currentPlayer.sellCard(card,buyer,price);
+        moneyLabel.setText( currentPlayer.getMoney() + "E");
         
         
         
@@ -221,6 +242,7 @@ public class ManageCards extends javax.swing.JFrame {
         }
         
         housesLabel.setText("Houses built:"+ card.getHouses());
+        moneyLabel.setText( currentPlayer.getMoney() + "E");
         
         
         
@@ -247,10 +269,31 @@ public class ManageCards extends javax.swing.JFrame {
             card.mortgageCard(currentPlayer);
             JOptionPane.showMessageDialog(null, "Card is in mortgage now");
             
+            
         }
+        moneyLabel.setText( currentPlayer.getMoney() + "E");
         
         
     }//GEN-LAST:event_mortgageButtonActionPerformed
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        // TODO add your handling code here:
+        
+        int index = playerCollectionList.getSelectedIndex();
+        PropertyCard card = collection.get(index);
+        
+        if(card.getHouses()>0){
+            card.getOwner().sellHouse(card);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(null,"No houses to remove");
+            
+        }
+        
+        housesLabel.setText("Houses built:"+ card.getHouses());
+        moneyLabel.setText( currentPlayer.getMoney() + "E");
+    }//GEN-LAST:event_removeButtonActionPerformed
     
     
     
@@ -261,8 +304,10 @@ public class ManageCards extends javax.swing.JFrame {
     private javax.swing.JLabel cardName;
     private javax.swing.JLabel housesLabel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel moneyLabel;
     private javax.swing.JButton mortgageButton;
     private javax.swing.JList<String> playerCollectionList;
+    private javax.swing.JButton removeButton;
     private javax.swing.JButton sellButton;
     // End of variables declaration//GEN-END:variables
 }

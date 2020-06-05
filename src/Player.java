@@ -137,7 +137,7 @@ public class Player implements Serializable{
 	}
         
         public void sellCard(PropertyCard card,Player player, int price){
-            if(player.getMoney()>=card.getPrice()){
+            if(player.getMoney()>=price){
                 this.money += price;
                 for(int i=0; i<card.getHouses();i++) {
                 	this.sellHouse(card);
@@ -146,6 +146,9 @@ public class Player implements Serializable{
                 
                 player.getPaid(-price);
                 player.getCards().add(card);
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"The other player doesnt have enough money");
             }
         }
 
