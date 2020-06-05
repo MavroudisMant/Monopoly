@@ -12,13 +12,14 @@ public class NonHumanPlayer extends Player {
 	}
 
 	public void playTurn(ControlPanel panel) {
-		try {
-			TimeUnit.MILLISECONDS.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			TimeUnit.MILLISECONDS.sleep(500);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(!isInJail()) {
+			System.out.println(getCards());
 			int[] dice = rollDiceAction();
 			movePlayer(dice[0]+dice[1], true);
 			checkBuildHouse();
@@ -87,6 +88,7 @@ public class NonHumanPlayer extends Player {
 			int moneySpent = 0;
 			for(PropertyCard c: cardsToBuildOn) {
 				while(c.getHousePrice()+moneySpent<=moneyToSpend && c.hasSpaceForHouse()) {
+					JOptionPane.showMessageDialog(null, getName()+ " built a house");
 					buildHouse(c);
 					moneySpent+=c.getHousePrice();
 				}
@@ -150,12 +152,82 @@ public class NonHumanPlayer extends Player {
 		}
 	}
 	
-	public void checkBuyCardFromPlayer(Player player, PropertyCard card) {
-		
+	/*
+	 *  param player: The player attempting to buy the card
+	 */
+	public int checkBuyCardFromPlayer(Player player, PropertyCard card, int priceToBuy) {
+		int decision = -1;
+		if(checkCollection(player, card)) {
+			if(getMoney() > priceToBuy) {
+				decision = JOptionPane.YES_OPTION;
+			}
+			else {
+				decision = JOptionPane.NO_OPTION;
+			}
+		}
+		else {
+			
+			if(priceToBuy<= card.getPrice()*1.25 && getMoney()-priceToBuy>150) {
+				decision = JOptionPane.YES_OPTION;
+			}
+			else {
+				decision = JOptionPane.NO_OPTION;
+			}
+		}
+		return decision;
 	}
 	
-	public void checkSellCardToPlayer(Player player, PropertyCard card) {
+	/*
+	 * param almostComplete: true if this is the missing card so that the opponent completes a collection
+	 * 						 false otherwise 
+	 * 		 timesTried: The amount of tries the player has done to sell his card
+	 * 					 0= First time trying, 1=second time trying...
+	 */
+	public boolean checkSellCardToPlayer(Player player, PropertyCard card, boolean almostComplete, int timesTried) {
+		int priceToSell = 0;
+		if(almostComplete) {
+			if(timesTried==0) {
+				priceToSell = card.getPrice()*2;
+			}
+			else if(timesTried==1){
+				priceToSell = (int) Math.floor(card.getPrice()*1.5);
+			}
+			else if(timesTried==2) {
+				priceToSell = (int) Math.floor(card.getPrice()*1.25);
+			}
+			else {
+				priceToSell = card.getPrice();
+			}
+		}
+		else {
+			if(timesTried==0) {
+				priceToSell = (int) Math.floor(card.getPrice()*1.25);
+			}
+			else {
+				priceToSell = (int) Math.floor(card.getPrice());
+			}
+		}
 		
+		int choice =-1;
+		boolean soldCard = false;
+		if(player.getType().equals("HumanPlayer")) {
+			choice = JOptionPane.showConfirmDialog(null, player.getName() + " do you want to buy " + card.getName() + " for " +priceToSell);
+		}
+		else {
+			choice = checkBuyCardFromPlayer(player, card, priceToSell);
+		}
+		if(choice == JOptionPane.YES_OPTION) {
+			sellCard(card, player, priceToSell);
+			soldCard = true;
+		}
+		//the player will ask only twice per player and only if they do not have to much money so that they do not 
+		//take advantage of the AI
+		else if((choice == JOptionPane.NO_OPTION) && (player.getMoney() <= (priceToSell*1.5)) && (timesTried<1) ) {
+			soldCard = checkSellCardToPlayer(player, card, almostComplete, timesTried+=1);
+			 
+		}
+
+		return soldCard;
 	}
 	
 	//Class diagram difference. The parameter is now the amount of money he needs to pay

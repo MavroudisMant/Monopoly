@@ -21,7 +21,7 @@ public class Player implements Serializable{
 	
 	public Player(String name, ArrayList<Player> players,JLabel pawn) {
 		this.name = name;
-		this.money = 400;
+		this.money = 1500;
 		getOutOfJailCards = new ArrayList<>();
 		propertyCards = new ArrayList<>();
 		this.players = players;
