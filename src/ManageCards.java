@@ -234,11 +234,14 @@ public class ManageCards extends javax.swing.JFrame {
         
         
         
-        if(card.hasSpaceForHouse()){
+        if(card.hasSpaceForHouse() && currentPlayer.isCollectionFull(card)){
             card.getOwner().buildHouse(card);
         }
-        else{
+        else if(!card.hasSpaceForHouse()){
             JOptionPane.showMessageDialog(null,"You can't build more houses");
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Your collection is not full");
         }
         
         housesLabel.setText("Houses built:"+ card.getHouses());
