@@ -21,7 +21,7 @@ public class Player implements Serializable{
 	
 	public Player(String name, ArrayList<Player> players,JLabel pawn) {
 		this.name = name;
-		this.money = 1500;
+		this.money = 400;
 		getOutOfJailCards = new ArrayList<>();
 		propertyCards = new ArrayList<>();
 		this.players = players;
@@ -130,15 +130,21 @@ public class Player implements Serializable{
 			JOptionPane.showMessageDialog(null, "You can not aford to build these houses");
 		}
 	}
+	
+	public void sellHouse(PropertyCard card) {
+		card.removeHouse();
+		this.money+= card.getHousePrice()/2;
+	}
         
-        public void sellCard(PropertyCard card,Player player){
+        public void sellCard(PropertyCard card,Player player, int price){
             if(player.getMoney()>=card.getPrice()){
-                this.money += card.getPrice();
-                this.money += card.getHousePrice() * card.getHouses();
-                card.setHouses(0);
+                this.money += price;
+                for(int i=0; i<card.getHouses();i++) {
+                	this.sellHouse(card);
+                }
                 this.propertyCards.remove(card);
                 
-                player.getPaid(-card.getPrice());
+                player.getPaid(-price);
                 player.getCards().add(card);
             }
         }

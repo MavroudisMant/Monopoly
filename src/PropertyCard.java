@@ -34,6 +34,10 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
                 
 	}
 	
+	public void removeHouse() {
+		houses--;
+	}
+	
 	public void mortgageCard(Player owner) {
 		owner.getPaid(price/2);
 		inMortgage = true;
