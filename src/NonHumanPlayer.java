@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JLabel;
 
@@ -12,12 +13,12 @@ public class NonHumanPlayer extends Player {
 	}
 
 	public void playTurn(ControlPanel panel) {
-//		try {
-//			TimeUnit.MILLISECONDS.sleep(500);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			TimeUnit.MILLISECONDS.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(!isInJail()) {
 			System.out.println(getCards());
 			int[] dice = rollDiceAction();
@@ -33,8 +34,172 @@ public class NonHumanPlayer extends Player {
 	
 	//Returns true if the player sold something and now can afford his desired action
 	//Returns false if he could not sell anything so he can not complete his desired action
-	private boolean checkPayment(int debt) {
-		return true;
+	/*
+	 * First the player tries to sell his houses.
+	 * If that is not enough he tries to mortgage his cards(Not those that are full collection)
+	 * If that is not enough either he tries to sell them instead of mortgage.
+	 * If that is not enough he will not try to sell his full Collections because he would not be able to come back
+	 * it would mean that he would eventually lose in a few rounds.
+	 */
+	public boolean checkPayment(int debt) {
+		boolean couldSell = false;	
+		System.out.println("here");
+		couldSell = checkSellHouses(debt);
+		System.out.println("here");
+		System.out.println(getMoney());
+		if(!couldSell) {
+			ArrayList<PropertyCard> soloCardsToMortgage = new ArrayList<>();
+			for(PropertyCard c: getCards()) {
+				if(!c.isInMortgage() && !isCollectionFull(c) && !checkCollection(this, c)) {
+					soloCardsToMortgage.add(c);
+				}
+			}
+			ArrayList<PropertyCard> almostCompleteCards = new ArrayList<>();
+			for(PropertyCard c: getCards()) {
+				//still will not get full Collection and in Mortgage but will dodge already taken
+				if(checkCollection(this, c)) {
+					almostCompleteCards.add(c);
+				}
+			}
+			couldSell = checkMortgageCards(soloCardsToMortgage, almostCompleteCards, debt);
+			if(!couldSell) {
+				couldSell = chooseWhatToSell(soloCardsToMortgage, debt);
+				if(!couldSell) {
+					couldSell = chooseWhatToSell(almostCompleteCards, debt);
+				}
+			}
+		}
+		return couldSell;
+	}
+	
+	private boolean chooseWhatToSell(ArrayList<PropertyCard> cards, int debt) {
+		boolean enoughMoney = false;
+		//We do not sort because the outcome is based on luck, on what cards the other players need
+		for(PropertyCard c: cards) {
+			boolean sold = false;
+			Player bestBuyer = null;
+			//He will first look for a player that misses this card to complete a collection
+			for(Player p: getPlayers()) {
+				if(checkCollection(p, c)) {
+					bestBuyer = p;
+					break;
+				}
+			}
+			if(bestBuyer!=null) {
+				sold = checkSellCardToPlayer(bestBuyer, c, true, 0);
+			}
+			if(!sold) {
+				//If bestBuyer did not buy will try the others with lower price
+				for(Player p: getPlayers()) {
+					if(p!=bestBuyer) {
+						sold = checkSellCardToPlayer(p, c, false, 0);
+					}
+					if(sold) {
+						break;
+					}
+				}
+			}
+			//If no one buys the card will try again the bestBuyer with lower price
+			if(!sold && bestBuyer!=null) {
+				sold = checkSellCardToPlayer(bestBuyer, c, true, 2);
+			}
+			//If the card was sold and the money are now enough to pay off the debt no other cards will be sold
+			if(getMoney()>debt) {
+				enoughMoney = true;
+				break;
+			}
+		}
+		return enoughMoney;
+	}
+	
+	/*
+	 * If the debt is > the the most expensive house then the player will sell
+	 * the most expensive ones first to minimize the amount of houses sold.
+	 * Otherwise he will sell the least expensive first.
+	 */
+	private boolean checkSellHouses(int debt) {
+		ArrayList<PropertyCard> cardsWithHouses = new ArrayList<>();
+		for(PropertyCard c: getCards()) {
+			if(c.getHouses()>0) {
+				cardsWithHouses.add(c);
+			}
+		}
+		if(cardsWithHouses.size()>0) {
+			PropertyCard mostExpensiveHouses = Collections.max(cardsWithHouses);
+			if(debt>=mostExpensiveHouses.getHousePrice()) {
+				Collections.sort(cardsWithHouses, Collections.reverseOrder());
+			}
+			else {
+				Collections.sort(cardsWithHouses);
+			}
+			while(getMoney()<debt) {
+				for(PropertyCard c: cardsWithHouses) {
+						sellHouse(c);
+						if(c.getHouses() == 0) {
+							cardsWithHouses.remove(c);
+							return false;
+						}
+						if(getMoney()>=debt) {
+							return true;
+							
+						}	
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	/*
+	 * The player will first try to mortgage the cards without a team.
+	 * If that is not enough he will then try to sell the ones with almost 
+	 * complete team. If that is not enough either he will cancel and return false
+	 */
+	private boolean checkMortgageCards(ArrayList<PropertyCard> soloCardsToMortgage,ArrayList<PropertyCard> almostCompleteCards, int debt) {
+		boolean soldEnough = false;
+		if(soloCardsToMortgage.size()>0)
+			soldEnough = mortgageCards(soloCardsToMortgage, debt);
+		
+		if(!soldEnough) {
+			
+			if(almostCompleteCards.size()>0)
+				soldEnough = mortgageCards(almostCompleteCards, debt);
+		}
+		
+		if(!soldEnough) {
+			revertMortgage(soloCardsToMortgage);
+			revertMortgage(almostCompleteCards);
+		}
+		
+		return soldEnough;
+	}
+	
+	private boolean mortgageCards(ArrayList<PropertyCard> cards, int debt) {
+		CardPriceComparator comp = new CardPriceComparator();
+		PropertyCard mostExpensiveCard = Collections.max(cards, comp);
+		if(debt>=mostExpensiveCard.getPrice()) {
+			Collections.sort(cards, Collections.reverseOrder(comp));
+		}
+		else {
+			Collections.sort(cards, comp);
+		}
+		for(PropertyCard c: cards) {
+			c.mortgageCard();
+			if(getMoney()>debt) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	//If the players does not take enough money from mortgage he will revert changes and sell the cards instead
+	private void revertMortgage(ArrayList<PropertyCard> cards) {
+		for(PropertyCard c: cards) {
+			c.outOfMortgage();
+		}
 	}
 	
 	/*
@@ -220,7 +385,7 @@ public class NonHumanPlayer extends Player {
 			sellCard(card, player, priceToSell);
 			soldCard = true;
 		}
-		//the player will ask only twice per player and only if they do not have to much money so that they do not 
+		//the player will ask only twice per player and only if they do not have toο much money so that they do not 
 		//take advantage of the AI
 		else if((choice == JOptionPane.NO_OPTION) && (player.getMoney() <= (priceToSell*1.5)) && (timesTried<1) ) {
 			soldCard = checkSellCardToPlayer(player, card, almostComplete, timesTried+=1);
@@ -267,7 +432,24 @@ public class NonHumanPlayer extends Player {
 			checkBuyCard(card);
 		}
 		else {
-			payPlayer(card.getOwner(),card.calculateCharge());
+			boolean canPay = payPlayer(card.getOwner(),card.calculateCharge());
+			if(!canPay) {
+				canPay = checkPayment(card.calculateCharge());
+			}
+			if(canPay)
+				payPlayer(card.getOwner(),card.calculateCharge());
+			else
+				forfeitAction();
 		}
+	}
+}
+
+class CardPriceComparator implements Comparator<PropertyCard> {
+	
+	public int compare(PropertyCard card1, PropertyCard card2) {
+		int price1 = card1.getPrice();
+		int price2 = card2.getPrice();
+		
+		return ((Integer)price1).compareTo(price2);
 	}
 }

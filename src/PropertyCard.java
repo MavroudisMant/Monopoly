@@ -38,13 +38,13 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
 		houses--;
 	}
 	
-	public void mortgageCard(Player owner) {
+	public void mortgageCard() {
 		owner.getPaid(price/2);
 		inMortgage = true;
 	}
 	
-	public void outOfMortgage(Player player) {
-		player.payFine(price/2);
+	public void outOfMortgage() {
+		owner.payFine(price/2);
 		inMortgage = false;
 	}
 	

@@ -265,11 +265,11 @@ public class ManageCards extends javax.swing.JFrame {
         PropertyCard card = collection.get(index);
         
         if(card.isInMortgage()){
-            card.outOfMortgage(currentPlayer);
+            card.outOfMortgage();
             JOptionPane.showMessageDialog(null, "Card is not in mortgage now");
         }
         else{
-            card.mortgageCard(currentPlayer);
+            card.mortgageCard();
             JOptionPane.showMessageDialog(null, "Card is in mortgage now");
             
             
