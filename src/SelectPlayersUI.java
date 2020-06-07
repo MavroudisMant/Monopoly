@@ -230,15 +230,35 @@ public class SelectPlayersUI extends javax.swing.JFrame {
 
         buttonGroup.add(pawn3);
         pawn3.setActionCommand("icon3");
+        pawn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pawn3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup.add(pawn4);
         pawn4.setActionCommand("icon4");
+        pawn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pawn4ActionPerformed(evt);
+            }
+        });
 
         buttonGroup.add(pawn5);
         pawn5.setActionCommand("icon5");
+        pawn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pawn5ActionPerformed(evt);
+            }
+        });
 
         buttonGroup.add(pawn6);
         pawn6.setActionCommand("icon6");
+        pawn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pawn6ActionPerformed(evt);
+            }
+        });
 
         humanButton.setText("Human Player");
         humanButton.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -299,9 +319,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
                                     .addGroup(newGamePanelLayout.createSequentialGroup()
                                         .addGap(10, 10, 10)
                                         .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newGamePanelLayout.createSequentialGroup()
-                                                .addComponent(pawn5)
-                                                .addGap(0, 0, 0))
+                                            .addComponent(pawn5, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(pawn1, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(pawn3))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -377,10 +395,9 @@ public class SelectPlayersUI extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(icon6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(newGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(icon5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pawn5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pawn6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(icon5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pawn5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pawn6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addContainerGap(40, Short.MAX_VALUE))
@@ -459,6 +476,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
            numberOfPlayers.setVisible(false);
            typeNumber.setVisible(false);
            compVisibility(true);
+           addPlayer.setEnabled(false);
            numPlayers = k;
            
        }
@@ -546,6 +564,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         
         i++;
         currentPlayer.setText("Player " +i);
+        addPlayer.setEnabled(false);
         
         if(i>numPlayers){    
             compVisibility(false);
@@ -593,11 +612,34 @@ public class SelectPlayersUI extends javax.swing.JFrame {
     private void pawn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn1ActionPerformed
         // TODO add your handling code here:
         
+        addPlayer.setEnabled(true);
+        
     }//GEN-LAST:event_pawn1ActionPerformed
 
     private void pawn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn2ActionPerformed
         // TODO add your handling code here:
+        addPlayer.setEnabled(true);
     }//GEN-LAST:event_pawn2ActionPerformed
+
+    private void pawn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn3ActionPerformed
+        // TODO add your handling code here:
+        addPlayer.setEnabled(true);
+    }//GEN-LAST:event_pawn3ActionPerformed
+
+    private void pawn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn4ActionPerformed
+        // TODO add your handling code here:
+        addPlayer.setEnabled(true);
+    }//GEN-LAST:event_pawn4ActionPerformed
+
+    private void pawn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn5ActionPerformed
+        // TODO add your handling code here:
+        addPlayer.setEnabled(true);
+    }//GEN-LAST:event_pawn5ActionPerformed
+
+    private void pawn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn6ActionPerformed
+        // TODO add your handling code here:
+        addPlayer.setEnabled(true);
+    }//GEN-LAST:event_pawn6ActionPerformed
 
     /**
      * @param args the command line arguments
