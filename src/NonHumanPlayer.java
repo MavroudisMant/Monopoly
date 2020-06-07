@@ -298,21 +298,30 @@ public class NonHumanPlayer extends Player {
 			playTurn(panel);
 		}
 		else if((getMoney()-50)<150 && getTimeInJail()<3) {
-			boolean gotOut = jailOptions.rollAction();
+			int dice[] = jailOptions.rollAction();
+			boolean gotOut = dice[0] == dice[1];
 			if(gotOut) {
 				JOptionPane.showMessageDialog(null, "Player " + getName()+" got doubles to get out of jail");
 				playTurn(panel);
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Player " + getName()+" stayed in jail");
-				panel.setCurrentPlayerIndex(endRoundAction());
+				panel.setCurrentPlayerIndex(jailOptions.passAction());
 			}
 		}
 		else if((getMoney()-50)<150 && getTimeInJail()>=3) {
 			boolean couldPay = jailOptions.payAction();
-			playTurn(panel);
-			if(!couldPay) {
-				checkPayment(50);
+			if(couldPay) {
+				playTurn(panel);
+			}
+			else {
+				couldPay = checkPayment(50);
+				if(couldPay) {
+					playTurn(panel);
+				}
+				else {
+					forfeitAction();
+				}
 			}
 		}
 	}

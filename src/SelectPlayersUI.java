@@ -596,6 +596,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
+        players.add(new Player("", players, new JLabel()));
         ControlPanel panel = new ControlPanel(players);
         panel.loadGame(f);
         

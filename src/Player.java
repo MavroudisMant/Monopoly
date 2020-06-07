@@ -21,7 +21,7 @@ public class Player implements Serializable{
 	
 	public Player(String name, ArrayList<Player> players,JLabel pawn) {
 		this.name = name;
-		this.money = 1500;
+		this.money = 15;
 		getOutOfJailCards = new ArrayList<>();
 		propertyCards = new ArrayList<>();
 		this.players = players;
@@ -221,8 +221,8 @@ public class Player implements Serializable{
 	
 
         public int[] rollDiceAction() {
-        	int firstDie = ThreadLocalRandom.current().nextInt(1, 7);     	
-        	int secondDie = ThreadLocalRandom.current().nextInt(1,7);
+        	int firstDie = 30;//ThreadLocalRandom.current().nextInt(1, 7);     	
+        	int secondDie = 0;//ThreadLocalRandom.current().nextInt(1,7);
         	int[] dice = {firstDie, secondDie};
         	return dice;
         }

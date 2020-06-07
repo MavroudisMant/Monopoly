@@ -24,9 +24,10 @@ public class DecisionInstructionCard extends BoardBlock{
 	
 	public void blockAction(Player player) {
 		int cardToDraw = rand.nextInt(orderCards.size());
-		OrderCard card = orderCards.get(0);
+		OrderCard card = orderCards.get(cardToDraw);
 		drawnCards.add(card);
 		orderCards.remove(card);
+		JOptionPane.showMessageDialog(null, card.getText());
 		card.cardOrders(player);
 		if (orderCards.size()==0)
 			orderCards = drawnCards;

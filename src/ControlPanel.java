@@ -383,6 +383,9 @@ public class ControlPanel extends javax.swing.JFrame {
         for(Player p: players){
            newPlayers.add(new Player(p.getName(), players,p.getPawn()));
         }
+        for(Player p: newPlayers){
+            p.setBoard(this.board);
+        }
         this.players = newPlayers;
         this.initializeBoard();
     }//GEN-LAST:event_newGameActionPerformed

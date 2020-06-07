@@ -14,7 +14,7 @@ public class GetOutOfJail {
 		return couldPay;
 	}
 	
-	public boolean rollAction(){
+	public int[] rollAction(){
         int[] dice = player.rollDiceAction();
 		if(dice[0] == dice[1]) {
 			player.getOutOfJail();
@@ -22,21 +22,16 @@ public class GetOutOfJail {
 	//		parent.updateBoard(moveFor);
 			player.movePlayer(dice[0]+dice[1], true);
 	//		parent.setPlayAgain(false);
-	        return true;
 		}
-		else if(player.getTimeInJail()<2)
+		else if(player.getTimeInJail()<=2)
 		{
 			player.setTimeInJail(player.getTimeInJail()+1);
-	        return false;
 		}
-		else
-		{
-			return false;
-		}
+		return dice;
     }
 	
-	public void passAction() {
-		player.endRoundAction();
+	public int passAction() {
+		return player.endRoundAction();
 	}
 	
     public void useCardAction(){

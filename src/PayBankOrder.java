@@ -35,12 +35,10 @@ public class PayBankOrder extends OrderCard {
 
 	private void getPaid(Player player) {
 		player.getPaid(money);
-		JOptionPane.showMessageDialog(null, super.getText());
 	}
 	
 	private void payFine(Player player) {
 		player.payFine(money);
-		JOptionPane.showMessageDialog(null, super.getText());
 	}
 	
 	private void payFineOption(Player player) {
