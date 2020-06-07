@@ -84,7 +84,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="payRent" min="-2" pref="123" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -97,9 +97,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="ownerName" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="164" max="32767" attributes="0"/>
-                      <Component id="payRent" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
+                      <Component id="payRent" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace pref="164" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -155,9 +155,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="unownedText" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                       <Component id="buyCard" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace pref="156" max="32767" attributes="0"/>
+                      <EmptySpace pref="180" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

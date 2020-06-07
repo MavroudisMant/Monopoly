@@ -1,4 +1,5 @@
 
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 /*
@@ -13,6 +14,7 @@ public class CurrentCardOptions extends javax.swing.JFrame {
     private PropertyCard currentCard;
     private Player currentPlayer;
     
+    
     public CurrentCardOptions(PropertyCard card,Player player) {
         
         this.currentCard = card;
@@ -20,9 +22,11 @@ public class CurrentCardOptions extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
         if(card.getOwner() == null){
             ownedPanel.setVisible(false);
             unownedPanel.setVisible(true);
+            this.currentPlayer.setCurrentCardOptions(this);
             
             
         }
@@ -36,10 +40,15 @@ public class CurrentCardOptions extends javax.swing.JFrame {
             ownedPanel.setVisible(true);
             unownedPanel.setVisible(false);
             ownerName.setText("This card belongs to player " + card.getOwner().getName());
+            this.currentPlayer.setCurrentCardOptions(this);
             
         }
         
     }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,7 +95,7 @@ public class CurrentCardOptions extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ownedPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(payRent, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94))
+                .addGap(89, 89, 89))
         );
         ownedPanelLayout.setVerticalGroup(
             ownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,9 +105,9 @@ public class CurrentCardOptions extends javax.swing.JFrame {
             .addGroup(ownedPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(ownerName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addGap(143, 143, 143)
                 .addComponent(payRent, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         photoOfCard2.setText("photo of card");
@@ -134,9 +143,9 @@ public class CurrentCardOptions extends javax.swing.JFrame {
             .addGroup(unownedPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(unownedText)
-                .addGap(139, 139, 139)
+                .addGap(115, 115, 115)
                 .addComponent(buyCard, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         jLayeredPane1.setLayer(ownedPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);

@@ -17,6 +17,9 @@ public class Player implements Serializable{
 	private boolean inJail;
 	private int timeInJail;
 	private Board board;
+        private ArrayList<CurrentCardOptions> frames = new ArrayList<>() ;
+        
+       
 
 	
 	public Player(String name, ArrayList<Player> players,JLabel pawn) {
@@ -221,8 +224,8 @@ public class Player implements Serializable{
 	
 
         public int[] rollDiceAction() {
-        	int firstDie = 30;//ThreadLocalRandom.current().nextInt(1, 7);     	
-        	int secondDie = 0;//ThreadLocalRandom.current().nextInt(1,7);
+        	int firstDie = ThreadLocalRandom.current().nextInt(1, 7);     	
+        	int secondDie = ThreadLocalRandom.current().nextInt(1,7);
         	int[] dice = {firstDie, secondDie};
         	return dice;
         }
@@ -248,8 +251,25 @@ public class Player implements Serializable{
         
         public int endRoundAction() {
         	int currentPlayerIndex = (players.indexOf(this)+1) % players.size();
+            for (CurrentCardOptions frame : this.frames) {
+                frame.dispose();
+                
+            }
         	return currentPlayerIndex;
+                
+                
+               
         }
+        
+        public void setCurrentCardOptions(CurrentCardOptions c){
+           frames.add(c);
+            
+            
+        }
+        
+        
+        
+        
         
         public String getType() {
         	return "HumanPlayer";

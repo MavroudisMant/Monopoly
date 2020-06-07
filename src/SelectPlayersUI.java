@@ -599,6 +599,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         players.add(new Player("", players, new JLabel()));
         ControlPanel panel = new ControlPanel(players);
         panel.loadGame(f);
+        this.dispose();
         
     }//GEN-LAST:event_existingGameButtonActionPerformed
 
