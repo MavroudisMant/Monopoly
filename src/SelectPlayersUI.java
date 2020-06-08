@@ -36,6 +36,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         initComponents();
        compVisibility(false);
        this.setVisible(true);
+       this.setResizable(false);
       
        
        existingGamePanel.setVisible(false);
@@ -160,7 +161,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             }
         });
 
-        photo.setText("jLabel1");
+        photo.setIcon(new ImageIcon("Icons/monopolyStarting.jpg"));
 
         javax.swing.GroupLayout firstPanelLayout = new javax.swing.GroupLayout(firstPanel);
         firstPanel.setLayout(firstPanelLayout);
@@ -169,13 +170,10 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             .addGroup(firstPanelLayout.createSequentialGroup()
                 .addGap(105, 105, 105)
                 .addComponent(existingGameButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                 .addComponent(newGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(128, 128, 128))
-            .addGroup(firstPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+            .addComponent(photo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         firstPanelLayout.setVerticalGroup(
             firstPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
