@@ -2,7 +2,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -164,7 +163,7 @@ public class Player implements Serializable{
 		return players;
 	}
 
-	public void movePlayer(int dice, boolean getPaid) {
+	public BoardBlock movePlayer(int dice, boolean getPaid) {
 		int posbefore = position;
 		position = (position + dice) % BoardBlock.getTotalBlocks();
 		BoardBlock block = this.board.updateBoard(this, posbefore, position);
@@ -172,6 +171,7 @@ public class Player implements Serializable{
 			this.getPaid(200);
 		}
 		block.blockAction(this);
+		return block;
 	}
 	
 	public void movePlayerToBlock(int position, boolean getPaid) {
