@@ -37,6 +37,7 @@ public class ControlPanel extends javax.swing.JFrame {
     
     public ControlPanel(ArrayList<Player> players) {
         initComponents();
+        this.setTitle("Control Panel");
         this.players = players;
         currentPlayerIndex = 0;
     	frame = this;
@@ -48,6 +49,7 @@ public class ControlPanel extends javax.swing.JFrame {
         updateControlPanel();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        
         
     }
     

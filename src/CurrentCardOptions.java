@@ -1,5 +1,12 @@
 
+import java.awt.Dialog;
+import java.awt.Frame;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -22,11 +29,25 @@ public class CurrentCardOptions extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        for(Frame f: Frame.getFrames()){
+            if(f.getTitle().equals("Control Panel")){
+                f.setVisible(false);
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         if(card.getOwner() == null){
             ownedPanel.setVisible(false);
             unownedPanel.setVisible(true);
-            this.currentPlayer.setCurrentCardOptions(this);
+            
             
             
         }
@@ -40,7 +61,8 @@ public class CurrentCardOptions extends javax.swing.JFrame {
             ownedPanel.setVisible(true);
             unownedPanel.setVisible(false);
             ownerName.setText("This card belongs to player " + card.getOwner().getName());
-            this.currentPlayer.setCurrentCardOptions(this);
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            
             
         }
         
@@ -61,17 +83,23 @@ public class CurrentCardOptions extends javax.swing.JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         ownedPanel = new javax.swing.JPanel();
-        photoOfCard = new javax.swing.JLabel();
         ownerName = new javax.swing.JLabel();
         payRent = new javax.swing.JButton();
+        manageRent = new javax.swing.JButton();
+        forfeitButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         unownedPanel = new javax.swing.JPanel();
-        photoOfCard2 = new javax.swing.JLabel();
         unownedText = new javax.swing.JLabel();
         buyCard = new javax.swing.JButton();
+        manageBuy = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        photoOfCard.setText("photo of card");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         ownerName.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
         ownerName.setText("This card belongs to");
@@ -83,34 +111,59 @@ public class CurrentCardOptions extends javax.swing.JFrame {
             }
         });
 
+        manageRent.setText("Manage Cards");
+        manageRent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageRentActionPerformed(evt);
+            }
+        });
+
+        forfeitButton.setText("Forfeit");
+        forfeitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forfeitButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setIcon(new ImageIcon(currentCard.geticonPathForCurrentCard()));
+
         javax.swing.GroupLayout ownedPanelLayout = new javax.swing.GroupLayout(ownedPanel);
         ownedPanel.setLayout(ownedPanelLayout);
         ownedPanelLayout.setHorizontalGroup(
             ownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ownedPanelLayout.createSequentialGroup()
+                .addGroup(ownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ownedPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(forfeitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ownedPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(ownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(manageRent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(payRent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(77, 77, 77))
             .addGroup(ownedPanelLayout.createSequentialGroup()
-                .addComponent(photoOfCard, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
                 .addComponent(ownerName)
                 .addGap(0, 163, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ownedPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(payRent, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
         );
         ownedPanelLayout.setVerticalGroup(
             ownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ownedPanelLayout.createSequentialGroup()
-                .addComponent(photoOfCard)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(ownedPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(ownerName)
-                .addGap(143, 143, 143)
+                .addGroup(ownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ownedPanelLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(ownerName))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73)
                 .addComponent(payRent, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(manageRent, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(forfeitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
-
-        photoOfCard2.setText("photo of card");
 
         unownedText.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
         unownedText.setText("This card is unowned");
@@ -122,30 +175,45 @@ public class CurrentCardOptions extends javax.swing.JFrame {
             }
         });
 
+        manageBuy.setText("ManageCards");
+        manageBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageBuyActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setIcon(new ImageIcon(currentCard.geticonPathForCurrentCard()));
+
         javax.swing.GroupLayout unownedPanelLayout = new javax.swing.GroupLayout(unownedPanel);
         unownedPanel.setLayout(unownedPanelLayout);
         unownedPanelLayout.setHorizontalGroup(
             unownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(unownedPanelLayout.createSequentialGroup()
-                .addGroup(unownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buyCard, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(unownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(unownedPanelLayout.createSequentialGroup()
-                        .addComponent(photoOfCard2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
+                        .addGap(219, 219, 219)
+                        .addGroup(unownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buyCard, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(manageBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, unownedPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(unownedText)))
-                .addGap(0, 92, Short.MAX_VALUE))
+                .addGap(0, 118, Short.MAX_VALUE))
         );
         unownedPanelLayout.setVerticalGroup(
             unownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(unownedPanelLayout.createSequentialGroup()
-                .addComponent(photoOfCard2)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(unownedPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(unownedText)
-                .addGap(115, 115, 115)
+                .addGroup(unownedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(unownedPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(unownedText))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addComponent(buyCard, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGap(79, 79, 79)
+                .addComponent(manageBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jLayeredPane1.setLayer(ownedPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -212,11 +280,38 @@ public class CurrentCardOptions extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(currentPlayer.buyCard(currentCard)){
         JOptionPane.showMessageDialog(null, "Card bought sucessfully");
+        
         this.dispose();
         }
         
         
     }//GEN-LAST:event_buyCardActionPerformed
+
+    private void manageRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRentActionPerformed
+        // TODO add your handling code here:
+        ManageCards managecards = new ManageCards(currentPlayer.getCards(),currentPlayer);
+    }//GEN-LAST:event_manageRentActionPerformed
+
+    private void forfeitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forfeitButtonActionPerformed
+        // TODO add your handling code here:
+        currentPlayer.forfeitAction();
+        this.dispose();
+    }//GEN-LAST:event_forfeitButtonActionPerformed
+
+    private void manageBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageBuyActionPerformed
+        // TODO add your handling code here:
+        ManageCards manage = new ManageCards(currentPlayer.getCards(),currentPlayer);
+    }//GEN-LAST:event_manageBuyActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        for(Frame f: Frame.getFrames()){
+            if(f.getTitle().equals("Control Panel")){
+                f.setVisible(true);
+            }
+        }
+        
+    }//GEN-LAST:event_formWindowClosed
 
     
     
@@ -225,12 +320,15 @@ public class CurrentCardOptions extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buyCard;
+    private javax.swing.JButton forfeitButton;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JButton manageBuy;
+    private javax.swing.JButton manageRent;
     private javax.swing.JPanel ownedPanel;
     private javax.swing.JLabel ownerName;
     private javax.swing.JButton payRent;
-    private javax.swing.JLabel photoOfCard;
-    private javax.swing.JLabel photoOfCard2;
     private javax.swing.JPanel unownedPanel;
     private javax.swing.JLabel unownedText;
     // End of variables declaration//GEN-END:variables

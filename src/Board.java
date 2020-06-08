@@ -25,51 +25,51 @@ public class Board extends JFrame{
 		
 		//Creation of the left side of the board
 				allTheBlocks[0] = new BoardBlock("Icons/start.jpg");//START
-				allTheBlocks[1] = new PropertyCard("Icons/brown1.jpg",60,2,50,"Brown",2, "Ceres");
+				allTheBlocks[1] = new PropertyCard("Icons/brown1.jpg",60,2,50,"Brown",2, "Ceres","Icons/CurrentCardOptions/brown1.jpg");
 				allTheBlocks[2] = new DecisionInstructionCard("Icons/chanceSide.jpg", players);
-				allTheBlocks[3] = new PropertyCard("Icons/brown2.jpg",60,4,50,"Brown",2, "Orcus");
+				allTheBlocks[3] = new PropertyCard("Icons/brown2.jpg",60,4,50,"Brown",2, "Orcus","Icons/CurrentCardOptions/brown2.jpg");
 				allTheBlocks[4] = new Tax(200,"Icons/small.png");
-				allTheBlocks[5] = new PropertyCard("Icons/transport1.jpg",200,25,0,"Transport",4, "Skylab");
-				allTheBlocks[6] = new PropertyCard("Icons/lightBlue1.png",100,6,50,"LightBlue",3, "Pluto");
+				allTheBlocks[5] = new PropertyCard("Icons/transport1.jpg",200,25,0,"Transport",4, "Skylab","Icons/CurrentCardOptions/transport1.jpg");
+				allTheBlocks[6] = new PropertyCard("Icons/lightBlue1.png",100,6,50,"LightBlue",3, "Pluto","Icons/CurrentCardOptions/lightBlue1.png");
 				allTheBlocks[7] = new DecisionInstructionCard("Icons/orderSide.jpg",players);
-				allTheBlocks[8] = new PropertyCard("Icons/lightBlue2.jpg",100,6,50,"LightBlue",3, "Haumea");
-				allTheBlocks[9] = new PropertyCard("Icons/lightBlue3.png",120,8,50,"LightBlue",3, "Quaoar");
+				allTheBlocks[8] = new PropertyCard("Icons/lightBlue2.jpg",100,6,50,"LightBlue",3, "Haumea","Icons/CurrentCardOptions/lightBlue2.jpg");
+				allTheBlocks[9] = new PropertyCard("Icons/lightBlue3.png",120,8,50,"LightBlue",3, "Quaoar","Icons/CurrentCardOptions/lightBlue3.png");
 				
 				//Creation of the top side of the board
 				allTheBlocks[10] = new BoardBlock("Icons/jail.jpg");//JAIL
-				allTheBlocks[11] = new PropertyCard("Icons/pink1.png",140,10,100,"Pink",3, "Makemake");
-				allTheBlocks[12] = new PropertyCard("Icons/smallVert.png",150,0,0,"Star",2, "Cassiopeia");
-				allTheBlocks[13] = new PropertyCard("Icons/pink2.png",140,10,100,"Pink",3, "Gonggong");
-				allTheBlocks[14] = new PropertyCard("Icons/pink3.png",160,12,100,"Pink",3, "Eris");
-				allTheBlocks[15] = new PropertyCard("Icons/transport2.jpg",200,25,0,"Transport",4, "Mir");
-				allTheBlocks[16] = new PropertyCard("Icons/orange1.jpg",180,14,100,"Orange",3, "Mercury");
+				allTheBlocks[11] = new PropertyCard("Icons/pink1.png",140,10,100,"Pink",3, "Makemake","Icons/CurrentCardOptions/pink1.png");
+				allTheBlocks[12] = new PropertyCard("Icons/smallVert.png",150,0,0,"Star",2, "Cassiopeia","Icons/CurrentCardOptions/smallVert.jpg");
+				allTheBlocks[13] = new PropertyCard("Icons/pink2.png",140,10,100,"Pink",3, "Gonggong","Icons/CurrentCardOptions/pink2.jpg");
+				allTheBlocks[14] = new PropertyCard("Icons/pink3.png",160,12,100,"Pink",3, "Eris","Icons/CurrentCardOptions/pink3.png");
+				allTheBlocks[15] = new PropertyCard("Icons/transport2.jpg",200,25,0,"Transport",4, "Mir","Icons/CurrentCardOptions/transport2.jpg");
+				allTheBlocks[16] = new PropertyCard("Icons/orange1.jpg",180,14,100,"Orange",3, "Mercury","Icons/CurrentCardOptions/orange1.jpg");
 				allTheBlocks[17] = new DecisionInstructionCard("Icons/chanceVertical.jpg",players);
-				allTheBlocks[18] = new PropertyCard("Icons/orange2.jpg",180,14,100,"Orange",3, "Mars");
-				allTheBlocks[19] = new PropertyCard("Icons/orange3.jpg",200,16,100,"Orange",3, "Venus");
+				allTheBlocks[18] = new PropertyCard("Icons/orange2.jpg",180,14,100,"Orange",3, "Mars","Icons/CurrentCardOptions/orange2.jpg");
+				allTheBlocks[19] = new PropertyCard("Icons/orange3.jpg",200,16,100,"Orange",3, "Venus","Icons/CurrentCardOptions/orange3.jpg");
 				
 				//Creation of the right side of the board
 				allTheBlocks[20] = new BoardBlock("Icons/stop.jpg");//STOP
-				allTheBlocks[21] = new PropertyCard("Icons/red1.jpg",220,18,150,"Red",3, "Earth");
+				allTheBlocks[21] = new PropertyCard("Icons/red1.jpg",220,18,150,"Red",3, "Earth","Icons/CurrentCardOptions/red1.jpg");
 				allTheBlocks[22] = new DecisionInstructionCard("Icons/orderSide.jpg",players);
-				allTheBlocks[23] = new PropertyCard("Icons/red2.jpg",220,18,150,"Red",3, "Wolf 1061C");
-				allTheBlocks[24] = new PropertyCard("Icons/red3.jpg",240,20,150,"Red",3, "Kepler 1229b");
-				allTheBlocks[25] = new PropertyCard("Icons/transport3.jpg",200,25,0,"Transport",4, "Tiangong");
-				allTheBlocks[26] = new PropertyCard("Icons/yellow1.jpg",260,22,150,"Yellow",3, "TRAPPIST-1g");
-				allTheBlocks[27] = new PropertyCard("Icons/yellow2.jpg",260,22,150,"Yellow",3, "LHS 1140b");
-				allTheBlocks[28] = new PropertyCard("Icons/small.png",150,0,0,"Star",2, "Orion");
-				allTheBlocks[29] = new PropertyCard("Icons/yellow3.jpg",280,24,150,"Yellow",3, "Kepler-1638b");
+				allTheBlocks[23] = new PropertyCard("Icons/red2.jpg",220,18,150,"Red",3, "Wolf 1061C","Icons/CurrentCardOptions/red2.jpg");
+				allTheBlocks[24] = new PropertyCard("Icons/red3.jpg",240,20,150,"Red",3, "Kepler 1229b","Icons/CurrentCardOptions/red3.jpg");
+				allTheBlocks[25] = new PropertyCard("Icons/transport3.jpg",200,25,0,"Transport",4, "Tiangong","Icons/CurrentCardOptions/transport3.jpg");
+				allTheBlocks[26] = new PropertyCard("Icons/yellow1.jpg",260,22,150,"Yellow",3, "TRAPPIST-1g","Icons/CurrentCardOptions/yellow1.jpg");
+				allTheBlocks[27] = new PropertyCard("Icons/yellow2.jpg",260,22,150,"Yellow",3, "LHS 1140b","Icons/CurrentCardOptions/yellow2.jpg");
+				allTheBlocks[28] = new PropertyCard("Icons/small.png",150,0,0,"Star",2, "Orion","Icons/CurrentCardOptions/brown1.jpg");
+				allTheBlocks[29] = new PropertyCard("Icons/yellow3.jpg",280,24,150,"Yellow",3, "Kepler-1638b","Icons/CurrentCardOptions/yellow3.jpg");
 				
 				//Creation of the bottom side of the board
 				allTheBlocks[30] = new GoToJail("Icons/goToJail.jpg");//GO TO JAIL
-				allTheBlocks[31] = new PropertyCard("Icons/green1.jpg",300,26,200,"Green",3, "Neptune");
-				allTheBlocks[32] = new PropertyCard("Icons/green2.jpg",300,26,200,"Green",3, "Uranus");
+				allTheBlocks[31] = new PropertyCard("Icons/green1.jpg",300,26,200,"Green",3, "Neptune","Icons/CurrentCardOptions/green1.jpg");
+				allTheBlocks[32] = new PropertyCard("Icons/green2.jpg",300,26,200,"Green",3, "Uranus","Icons/CurrentCardOptions/green2.jpg");
 				allTheBlocks[33] = new DecisionInstructionCard("Icons/chanceVertical.jpg",players);
-				allTheBlocks[34] = new PropertyCard("Icons/green3.jpg",320,28,200,"Green",3, "Saturn");
-				allTheBlocks[35] = new PropertyCard("Icons/transport4.jpg",200,25,0,"Transport",4, "ISS-International Space Station");
+				allTheBlocks[34] = new PropertyCard("Icons/green3.jpg",320,28,200,"Green",3, "Saturn","Icons/CurrentCardOptions/green3.jpg");
+				allTheBlocks[35] = new PropertyCard("Icons/transport4.jpg",200,25,0,"Transport",4, "ISS-International Space Station","Icons/CurrentCardOptions/transport4.jpg");
 				allTheBlocks[36] = new DecisionInstructionCard("Icons/orderVertical.jpg",players);
-				allTheBlocks[37] = new PropertyCard("Icons/blue1.jpg",350,35,200,"Blue",2, "Jupiter");
+				allTheBlocks[37] = new PropertyCard("Icons/blue1.jpg",350,35,200,"Blue",2, "Jupiter","Icons/CurrentCardOptions/blue1.jpg");
 				allTheBlocks[38] = new Tax(100,"Icons/smallVert.png");
-				allTheBlocks[39] = new PropertyCard("Icons/blue2.jpg",400,50,200,"Blue",2, "GQ Lupi b");
+				allTheBlocks[39] = new PropertyCard("Icons/blue2.jpg",400,50,200,"Blue",2, "GQ Lupi b","Icons/CurrentCardOptions/blue2.jpg");
 		
 		this.addItemsToPanels();
 	}

@@ -12,8 +12,9 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
 	private String team;
 	private int teamSize;
 	private String name;
+        private String iconPathForCurrentCard;
 
-	public PropertyCard(String picturePath,int price,int rent,int housePrice,String team, int teamSize, String name) {
+	public PropertyCard(String picturePath,int price,int rent,int housePrice,String team, int teamSize, String name,String path) {
 		super(picturePath);
 		this.price = price;
 		this.rent = rent;
@@ -23,6 +24,7 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
 		this.houses = 0;
 		this.inMortgage = false;
 		this.name = name;
+                this.iconPathForCurrentCard = path;
 	}
 	
 	public int calculateCharge() {
@@ -112,6 +114,11 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
                 
                 public void setHouses(int houses){
                     this.houses = houses;
+                }
+                
+                public String geticonPathForCurrentCard(){
+                    return this.iconPathForCurrentCard;
+    
                 }
                 
         @Override

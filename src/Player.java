@@ -16,7 +16,7 @@ public class Player implements Serializable{
 	private boolean inJail;
 	private int timeInJail;
 	private Board board;
-        private ArrayList<CurrentCardOptions> frames = new ArrayList<>() ;
+        
         
        
 
@@ -251,21 +251,13 @@ public class Player implements Serializable{
         
         public int endRoundAction() {
         	int currentPlayerIndex = (players.indexOf(this)+1) % players.size();
-            for (CurrentCardOptions frame : this.frames) {
-                frame.dispose();
-                
-            }
         	return currentPlayerIndex;
                 
                 
                
         }
         
-        public void setCurrentCardOptions(CurrentCardOptions c){
-           frames.add(c);
-            
-            
-        }
+        
         
         
         
