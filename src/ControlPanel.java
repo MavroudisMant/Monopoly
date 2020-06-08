@@ -68,18 +68,23 @@ public class ControlPanel extends javax.swing.JFrame {
         else{
             if(players.get(currentPlayerIndex).isInJail())
             {
-                GetOutOfJailGUI jailWindow = new GetOutOfJailGUI(frame, true, players.get(currentPlayerIndex));
+                currCardOptions.setEnabled(false);
+                rollDice.setEnabled(false);
+                endRound.setEnabled(false);
+                endGame.setEnabled(false);
+                System.out.print("here");
+                GetOutOfJailGUI jailWindow = new GetOutOfJailGUI(frame, false, players.get(currentPlayerIndex));
                 jailWindow.setVisible(true);
+                
+            }
+            else{
+                rollDice.setEnabled(true);
+                currCardOptions.setEnabled(false);
             }
         }
 
     }
     
-    
-    public void executeBlockAction(BoardBlock block) {
-    	currCardOptions.setEnabled(true);
-    	//block.executeBlockAction(players.get(currentPlayerIndex));
-    }
     
     public void initializeBoard() {
     	board.initializeBoard();
@@ -310,7 +315,10 @@ public class ControlPanel extends javax.swing.JFrame {
         int dice[] = players.get(currentPlayerIndex).rollDiceAction();
         die1.setText(Integer.toString(dice[0]));
         die2.setText(Integer.toString(dice[1]));
-        players.get(currentPlayerIndex).movePlayer(dice[0]+dice[1], true);//walks normal. So he has to get paid if he passes the start
+        BoardBlock currBlock = players.get(currentPlayerIndex).movePlayer(dice[0]+dice[1], true);//walks normal. So he has to get paid if he passes the start
+        if(currBlock.getType().equals("PropertyCard")){
+            currCardOptions.setEnabled(true);
+        }
         playAgain = dice[0] == dice[1];
 	if(!playAgain) {
 	rollDice.setEnabled(false); //if playAgain==true you can roll again
@@ -320,8 +328,7 @@ public class ControlPanel extends javax.swing.JFrame {
 
     private void currCardOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currCardOptionsActionPerformed
         // TODO add your handling code here:
-        //Calls the CurrentCards class
-        
+        CurrentCardOptions currWindow = new CurrentCardOptions((PropertyCard)board.getPlayerPositionOnBoard(), players.get(currentPlayerIndex));
     }//GEN-LAST:event_currCardOptionsActionPerformed
 
     private void manageCardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCardsActionPerformed
@@ -346,7 +353,7 @@ public class ControlPanel extends javax.swing.JFrame {
         currentPlayerIndex = players.get(currentPlayerIndex).endRoundAction();
 	updateControlPanel();
         endRound.setEnabled(false); 
-    	rollDice.setEnabled(true); //when the round finishes re enable the rollDice for the next Player 
+//    	rollDice.setEnabled(true); //when the round finishes re enable the rollDice for the next Player 
     }//GEN-LAST:event_endRoundActionPerformed
 
     
