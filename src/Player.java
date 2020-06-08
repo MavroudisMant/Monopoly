@@ -17,14 +17,14 @@ public class Player implements Serializable{
 	private boolean inJail;
 	private int timeInJail;
 	private Board board;
-        private ArrayList<CurrentCardOptions> frames = new ArrayList<>() ;
+        
         
        
 
 	
 	public Player(String name, ArrayList<Player> players,JLabel pawn) {
 		this.name = name;
-		this.money = 15;
+		this.money = 1500;
 		getOutOfJailCards = new ArrayList<>();
 		propertyCards = new ArrayList<>();
 		this.players = players;
@@ -251,21 +251,13 @@ public class Player implements Serializable{
         
         public int endRoundAction() {
         	int currentPlayerIndex = (players.indexOf(this)+1) % players.size();
-            for (CurrentCardOptions frame : this.frames) {
-                frame.dispose();
-                
-            }
         	return currentPlayerIndex;
                 
                 
                
         }
         
-        public void setCurrentCardOptions(CurrentCardOptions c){
-           frames.add(c);
-            
-            
-        }
+        
         
         
         
