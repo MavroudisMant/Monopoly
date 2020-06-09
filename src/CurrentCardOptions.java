@@ -9,15 +9,15 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*This class is responsible for player's interaction with the property card he laned on this round.
+  buyCard method from SDD moved to player for nonHumanPlayer/
+
  */
 
 
 public class CurrentCardOptions extends javax.swing.JFrame {
     
+    //Holds the property card which player landed in his round
     private PropertyCard currentCard;
     private Player currentPlayer;
     
@@ -29,6 +29,7 @@ public class CurrentCardOptions extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        //Sets control panel unable to interact with at the same time with current card options
         for(Frame f: Frame.getFrames()){
             if(f.getTitle().equals("Control Panel")){
                 f.setVisible(false);
@@ -259,7 +260,8 @@ public class CurrentCardOptions extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //Rent button
     private void payRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payRentActionPerformed
         // TODO add your handling code here:
         
@@ -275,7 +277,8 @@ public class CurrentCardOptions extends javax.swing.JFrame {
         }
       
     }//GEN-LAST:event_payRentActionPerformed
-
+    
+    //Buy card button
     private void buyCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyCardActionPerformed
         // TODO add your handling code here:
         if(currentPlayer.buyCard(currentCard)){
@@ -286,23 +289,25 @@ public class CurrentCardOptions extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_buyCardActionPerformed
-
+    
+    //Manage cards in rent panel button
     private void manageRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRentActionPerformed
         // TODO add your handling code here:
         ManageCards managecards = new ManageCards(currentPlayer.getCards(),currentPlayer);
     }//GEN-LAST:event_manageRentActionPerformed
-
+    //Forfeit button
     private void forfeitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forfeitButtonActionPerformed
         // TODO add your handling code here:
         currentPlayer.forfeitAction();
         this.dispose();
     }//GEN-LAST:event_forfeitButtonActionPerformed
-
+    //Manage cards in buy panel button
     private void manageBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageBuyActionPerformed
         // TODO add your handling code here:
         ManageCards manage = new ManageCards(currentPlayer.getCards(),currentPlayer);
     }//GEN-LAST:event_manageBuyActionPerformed
-
+    
+    //Control panel is visible again after interacting with current card options
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         for(Frame f: Frame.getFrames()){

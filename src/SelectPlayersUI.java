@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    This class is responsible to add players and their pawns in the game or load an already existing game.
+    Added 1 method for JComponent visibility.
+ 
  */
 
 
@@ -34,13 +34,14 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         
         
         initComponents();
+       
        compVisibility(false);
        this.setVisible(true);
        this.setResizable(false);
       
        
-       existingGamePanel.setVisible(false);
-       newGamePanel.setVisible(false);
+       
+       
        
        
        
@@ -121,8 +122,6 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         icon6 = new javax.swing.JLabel();
         icon2 = new javax.swing.JLabel();
         icon1 = new javax.swing.JLabel();
-        existingGamePanel = new javax.swing.JPanel();
-        chooseFile = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -401,27 +400,6 @@ public class SelectPlayersUI extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        existingGamePanel.setBackground(new java.awt.Color(51, 204, 255));
-        existingGamePanel.setPreferredSize(new java.awt.Dimension(703, 367));
-
-        chooseFile.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        chooseFile.setText("Choose your file to continue the game:");
-
-        javax.swing.GroupLayout existingGamePanelLayout = new javax.swing.GroupLayout(existingGamePanel);
-        existingGamePanel.setLayout(existingGamePanelLayout);
-        existingGamePanelLayout.setHorizontalGroup(
-            existingGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(existingGamePanelLayout.createSequentialGroup()
-                .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(298, Short.MAX_VALUE))
-        );
-        existingGamePanelLayout.setVerticalGroup(
-            existingGamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingGamePanelLayout.createSequentialGroup()
-                .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(340, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -429,8 +407,6 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             .addComponent(firstPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(newGamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(existingGamePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -442,10 +418,6 @@ public class SelectPlayersUI extends javax.swing.JFrame {
             .addComponent(firstPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(newGamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(existingGamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -486,7 +458,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_playersNameActionPerformed
-
+    
     private void humanButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_humanButtonStateChanged
         // TODO add your handling code here:
         if (humanButton.isSelected()){
@@ -588,9 +560,9 @@ public class SelectPlayersUI extends javax.swing.JFrame {
     private void existingGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_existingGameButtonActionPerformed
         // TODO add your handling code here:
 
-        //existingGamePanel.setVisible(true);
         
-        firstPanel.setVisible(false);
+        
+        
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
@@ -608,7 +580,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    //These methods guarantee that player selects his pawn
     private void pawn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pawn1ActionPerformed
         // TODO add your handling code here:
         
@@ -679,11 +651,9 @@ public class SelectPlayersUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPlayer;
     private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JLabel chooseFile;
     private javax.swing.JLabel currentPlayer;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JButton existingGameButton;
-    private javax.swing.JPanel existingGamePanel;
     private javax.swing.JPanel firstPanel;
     private javax.swing.JToggleButton humanButton;
     private javax.swing.JLabel icon1;

@@ -5,6 +5,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/*This class holds the data and the actions of each player in the game.
+  It contains more classes than these that are presented in SDD which where crucial for the nonHumanPlayer and the GUI.
+  
+*/
+
+
 public class Player implements Serializable{
 	private String name;
 	private int money;
@@ -20,7 +26,7 @@ public class Player implements Serializable{
         
        
 
-	
+	//Constructor 
 	public Player(String name, ArrayList<Player> players,JLabel pawn) {
 		this.name = name;
 		this.money = 1500;
@@ -38,21 +44,24 @@ public class Player implements Serializable{
 		return name;
 	}
 
-
+        
+        //Checks if player is in jail
 	public boolean isInJail() {
 		return inJail;
 	}
-
+        
 	public void goToJail() {
 		this.inJail = true;
 		movePlayerToBlock(10, false);
 		
 	}
 	
+        //Player gets out of jail
 	public void getOutOfJail() {
 		this.inJail = false;
 	}
-
+        
+        
 	public int getTimeInJail() {
 		return timeInJail;
 	}
@@ -65,7 +74,8 @@ public class Player implements Serializable{
 	public int getMoney() {
 		return money;
 	}
-
+        
+        //Setter for player's money
 	public void getPaid(int money) {
 		this.money += money;
 	}
@@ -111,6 +121,7 @@ public class Player implements Serializable{
 		}
 	}
 	
+        //Gives player the get out of jail order
 	public void addGetOutOfJailCard(OutOfJailOrder order) {
 		this.getOutOfJailCards.add(order);
 	}
@@ -122,7 +133,8 @@ public class Player implements Serializable{
 	public ArrayList<OrderCard> getGetOutOfJailCards() {
 		return getOutOfJailCards;
 	}
-
+        
+        //Player builds 1 house to his property card
 	public void buildHouse(PropertyCard card) {
 		if(card.getHousePrice() <= this.money) {
 			card.addHouse();
@@ -133,11 +145,13 @@ public class Player implements Serializable{
 		}
 	}
 	
+        //Player sells a house
 	public void sellHouse(PropertyCard card) {
 		card.removeHouse();
 		this.money+= card.getHousePrice()/2;
 	}
         
+        //Player sells a card from his collection to another player
         public void sellCard(PropertyCard card,Player player, int price){
             if(player.getMoney()>=price){
                 this.money += price;
@@ -153,7 +167,8 @@ public class Player implements Serializable{
                 JOptionPane.showMessageDialog(null,"The other player doesnt have enough money");
             }
         }
-
+        
+        
 	public ArrayList<PropertyCard> getCards() {
 		return propertyCards;
 	}
@@ -162,7 +177,8 @@ public class Player implements Serializable{
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-
+        
+       
 	public BoardBlock movePlayer(int dice, boolean getPaid) {
 		int posbefore = position;
 		position = (position + dice) % BoardBlock.getTotalBlocks();
@@ -206,6 +222,7 @@ public class Player implements Serializable{
 		return board;
 	}
         
+        //Counts the same color property cards player owns
         public int countSameTeamCards(Player player, PropertyCard card){
             int sum=0;
             for(PropertyCard c: player.getCards()){
@@ -222,7 +239,7 @@ public class Player implements Serializable{
             return countSameTeamCards(this, card) == card.getTeamSize();
         }
 	
-
+        //Player rolls the dices
         public int[] rollDiceAction() {
         	int firstDie = ThreadLocalRandom.current().nextInt(1, 7);     	
         	int secondDie = ThreadLocalRandom.current().nextInt(1,7);
@@ -230,6 +247,7 @@ public class Player implements Serializable{
         	return dice;
         }
 	
+        //Playe forfeits
         public int forfeitAction() {
         	int currentPlayerIndex = players.indexOf(this);
             BoardBlock block = board.getPlayerPositionOnBoard();
@@ -249,6 +267,7 @@ public class Player implements Serializable{
         	return currentPlayerIndex;
         }
         
+        //Player ends his round
         public int endRoundAction() {
         	int currentPlayerIndex = (players.indexOf(this)+1) % players.size();
         	return currentPlayerIndex;

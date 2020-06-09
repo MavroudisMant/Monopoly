@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    This class give player the option to interact with his propertycards and other players.
+    Methods listed in SDD moved to player and propertycard for nonHuman player.
  */
 
 
@@ -12,7 +11,8 @@ import javax.swing.event.ListSelectionEvent;
 
 
 public class ManageCards extends javax.swing.JFrame {
-
+    
+    //Data of currentPlayer and his cards
     private ArrayList<PropertyCard> collection = new ArrayList<>();
     private Player currentPlayer ;
     
@@ -170,7 +170,7 @@ public class ManageCards extends javax.swing.JFrame {
     private void playerCollectionListAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_playerCollectionListAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_playerCollectionListAncestorAdded
-
+    //Shows player cards in a label
     private void playerCollectionListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerCollectionListValueChanged
         // TODO add your handling code here:
         
@@ -189,7 +189,7 @@ public class ManageCards extends javax.swing.JFrame {
         housesLabel.setText("Houses built:"+ card.getHouses());
         moneyLabel.setText( currentPlayer.getMoney() + "E");
     }//GEN-LAST:event_playerCollectionListValueChanged
-
+    //Sell button
     private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
         // TODO add your handling code here:
         Player buyer = null;
@@ -225,7 +225,7 @@ public class ManageCards extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_sellButtonActionPerformed
-
+    //Build 1 house button
     private void buildButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildButtonActionPerformed
         // TODO add your handling code here:
         
@@ -257,7 +257,7 @@ public class ManageCards extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_buildButtonActionPerformed
-
+    //Put card in mortgage
     private void mortgageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mortgageButtonActionPerformed
         // TODO add your handling code here:
         
@@ -278,7 +278,7 @@ public class ManageCards extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_mortgageButtonActionPerformed
-
+    //Sell house
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         // TODO add your handling code here:
         
