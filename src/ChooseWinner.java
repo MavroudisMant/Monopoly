@@ -46,13 +46,14 @@ public class ChooseWinner {
     public int checkTotalValue(Player player){
         int sum=0;
         for (PropertyCard card : player.getCards()) {
-            sum += card.calculateCharge();
+            sum += card.getPrice() + (card.getHouses()*card.getHousePrice());
         }
         return player.getMoney()+sum;
     }
     
     public void showTheWinner(Player player){
-        JOptionPane.showMessageDialog(null, player.getName());
+        JOptionPane.showMessageDialog(null, "The winner is " + player.getName());
+        System.exit(0);
         
     }
          

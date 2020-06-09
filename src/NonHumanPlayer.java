@@ -6,12 +6,27 @@ import javax.swing.JLabel;
 
 import javax.swing.JOptionPane;
 
+/*
+ * This Class simulates a player played by the computer
+ * 
+ * Differences between the code and the SDD
+ * + chooseWhatToSell()
+ * + checkSellHouse()
+ * + checkMortgageCards()
+ * + mortgageCards()
+ * + revertMortgage()
+ * + calculateMoneyToSpend()
+ * + propertyActin()
+ * + Class CardPriceComparator
+ */
+
 public class NonHumanPlayer extends Player {
 	
 	public NonHumanPlayer(String name, ArrayList<Player> players,JLabel pawn) {
 		super(name, players,pawn);
 	}
 
+	
 	public void playTurn(ControlPanel panel) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(500);
@@ -23,6 +38,8 @@ public class NonHumanPlayer extends Player {
 			System.out.println(getCards());
 			int[] dice = rollDiceAction();
 			movePlayer(dice[0]+dice[1], true);
+			if(dice[0]==dice[1])
+				playTurn(panel);
 			checkBuildHouse();
 			panel.setCurrentPlayerIndex(endRoundAction());
 			panel.updateControlPanel();
@@ -328,6 +345,8 @@ public class NonHumanPlayer extends Player {
 	
 	/*
 	 *  param player: The player attempting to buy the card
+	 *  If the player misses this card to complete a collection he will 
+	 *  pay more money than if he does not. 
 	 */
 	public int checkBuyCardFromPlayer(Player player, PropertyCard card, int priceToBuy) {
 		int decision = -1;
@@ -436,6 +455,12 @@ public class NonHumanPlayer extends Player {
 		return "NonHumanPlayer";
 	}
 	
+	/*
+	 * params card : The PropertyCard the player landed on
+	 * If the card is unowned the players checks if he wants to buy it
+	 * Else he pays the rent. If he can not pay the rent he gets out 
+	 * of the game.
+	 */
 	public void propertyAction(PropertyCard card) {
 		if(card.getOwner()==null) {
 			checkBuyCard(card);

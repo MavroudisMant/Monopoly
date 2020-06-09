@@ -1,3 +1,9 @@
+	/*
+	 * This class handles the OrderCards that move the Player on the board
+	 * 
+	 * There are no differences between the code and the SDD
+	 * 
+	 */
 
 public class MovePlayerOrder extends OrderCard {
 	private int type;

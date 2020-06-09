@@ -224,8 +224,8 @@ public class Player implements Serializable{
 	
 
         public int[] rollDiceAction() {
-        	int firstDie = 1;//ThreadLocalRandom.current().nextInt(1, 7);     	
-        	int secondDie = 1;//ThreadLocalRandom.current().nextInt(1,7);
+        	int firstDie = ThreadLocalRandom.current().nextInt(1, 7);     	
+        	int secondDie = ThreadLocalRandom.current().nextInt(1,7);
         	int[] dice = {firstDie, secondDie};
         	return dice;
         }

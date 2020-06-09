@@ -1,5 +1,12 @@
 import javax.swing.JOptionPane;
 
+/*
+ * This class handles the payment between the player and the bank
+ * cause by that order/chance cards.
+ * 
+ * There are no differences between the code and the SDD
+ */
+
 public class PayBankOrder extends OrderCard {
 	private int money;
 	private int type;

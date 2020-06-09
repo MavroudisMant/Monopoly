@@ -1,4 +1,10 @@
 
+/*
+ * This Class creates a card that can get the player out of Jail
+ * 
+ * There are no differences between the code and the SDD
+ */
+
 public class OutOfJailOrder extends OrderCard {
 	
 	public OutOfJailOrder(String text) {

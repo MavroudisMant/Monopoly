@@ -8,6 +8,7 @@
  *
  * @author mmant
  */
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +22,21 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 
+/*
+ * This Class handles the interaction of the user with the app.
+ * 
+ * Differences between the code and the SDD
+ * + ChooseWinner chw
+ * + loadGame()
+ * + saveGame()
+ * + newGame()
+ * + getManul()
+ * - rollDiceAction() <It was moved to Player>
+ * - forfeitAction() <It was moved to Player>
+ * - endRoundAction() <It was moved to Player>
+ * - executeBlockAction()
+ */
+
 public class ControlPanel extends javax.swing.JFrame {
 
     /**
@@ -30,18 +46,20 @@ public class ControlPanel extends javax.swing.JFrame {
     private boolean playAgain = false;
     private ArrayList<Player> players;
     private Board board;
-    private ControlPanel frame;    
+    private ControlPanel frame;   
+    private ChooseWinner chw;
     //private DefaultListModel<String> listModel;
     
     
     
     public ControlPanel(ArrayList<Player> players) {
         initComponents();
+        chw = new ChooseWinner();
         this.setTitle("Control Panel");
         this.players = players;
         currentPlayerIndex = 0;
     	frame = this;
-    	board = new Board(this.players);
+    	board = new Board();
     	initializeBoard();
         currCardOptions.setEnabled(false); //You can not manage the current card before playing
         endRound.setEnabled(false); //You have to play before finishing your round
@@ -55,26 +73,30 @@ public class ControlPanel extends javax.swing.JFrame {
     
     public void updateControlPanel() {
         DefaultListModel<String> listModel = new DefaultListModel<>();    
-    	currentPlayer.setText(players.get(currentPlayerIndex).getName());//players[currentPlayerIndex].getName());
+    	currentPlayer.setText(players.get(currentPlayerIndex).getName());
     	playerMoney.setText(Integer.toString(players.get(currentPlayerIndex).getMoney())+ "E");   	
     	listModel.clear();
     	for(PropertyCard card: players.get(currentPlayerIndex).getCards())
     	{
-    		//System.out.print(card);
     		listModel.addElement(card.getName()+", "+card.getTeam());
     	}
     	playerCards.setModel(listModel);
+    	//If the next player is NonHuman he will play his turn without displaying any new Windows
         if(players.get(currentPlayerIndex).getType().equals("NonHumanPlayer")){
             ((NonHumanPlayer)players.get(currentPlayerIndex)).playTurn(this);
         }
         else{
+        	/*
+        	 * If the next player is Player(human)
+        	 * if he is in jail getOutOfJailGui will show and the actions from the control panel
+        	 * are disabled so he can not do anything else while in jail
+        	 */
             if(players.get(currentPlayerIndex).isInJail())
             {
                 currCardOptions.setEnabled(false);
                 rollDice.setEnabled(false);
                 endRound.setEnabled(false);
                 endGame.setEnabled(false);
-                System.out.print("here");
                 GetOutOfJailGUI jailWindow = new GetOutOfJailGUI(frame, false, players.get(currentPlayerIndex));
                 jailWindow.setVisible(true);
                 
@@ -82,6 +104,7 @@ public class ControlPanel extends javax.swing.JFrame {
             else{
                 rollDice.setEnabled(true);
                 currCardOptions.setEnabled(false);
+                endGame.setEnabled(true);
             }
         }
 
@@ -89,7 +112,7 @@ public class ControlPanel extends javax.swing.JFrame {
     
     
     public void initializeBoard() {
-    	board.initializeBoard();
+    	board.initializeBoard(players);
     }
     
     public boolean isPlayAgain() {
@@ -100,7 +123,8 @@ public class ControlPanel extends javax.swing.JFrame {
 	this.playAgain = playAgain;
     } 
     
-    public void loadGame(File f){
+    @SuppressWarnings("unchecked")
+	public void loadGame(File f){
         try {
             FileInputStream fins = new FileInputStream(f);
             ObjectInputStream dins = new ObjectInputStream(fins);
@@ -290,6 +314,11 @@ public class ControlPanel extends javax.swing.JFrame {
         helpMenu.setText("Help");
 
         getManual.setText("Manual");
+        getManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getManualActionPerformed(evt);
+            }
+        });
         helpMenu.add(getManual);
 
         jMenuBar1.add(helpMenu);
@@ -312,8 +341,6 @@ public class ControlPanel extends javax.swing.JFrame {
 
     private void rollDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollDiceActionPerformed
         // TODO add your handling code here:
-//	int moveFor = rollDiceAction();
-//	updateBoard(moveFor);
         int dice[] = players.get(currentPlayerIndex).rollDiceAction();
         die1.setText(Integer.toString(dice[0]));
         die2.setText(Integer.toString(dice[1]));
@@ -347,6 +374,7 @@ public class ControlPanel extends javax.swing.JFrame {
         currentPlayerIndex = players.get(currentPlayerIndex).forfeitAction();
         endRound.setEnabled(false); 
     	rollDice.setEnabled(true);
+        chw.checkRemainingPlayers(players); //Checks if there is only 1 player left in the game
     }//GEN-LAST:event_forfeitActionPerformed
 
     private void endRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endRoundActionPerformed
@@ -360,8 +388,7 @@ public class ControlPanel extends javax.swing.JFrame {
 
     
     private void endGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameActionPerformed
-        // TODO add your handling code here:
-        //Calls the get Winner Class
+        chw.gameFinishedByThePlayers(players);
     }//GEN-LAST:event_endGameActionPerformed
 
     private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveGameActionPerformed
@@ -387,7 +414,7 @@ public class ControlPanel extends javax.swing.JFrame {
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
         // TODO add your handling code here:
         this.board.dispose();
-        this.board = new Board(players);
+        this.board = new Board();
         ArrayList<Player> newPlayers = new ArrayList<>();
         for(Player p: players){
            newPlayers.add(new Player(p.getName(), players,p.getPawn()));
@@ -398,6 +425,16 @@ public class ControlPanel extends javax.swing.JFrame {
         this.players = newPlayers;
         this.initializeBoard();
     }//GEN-LAST:event_newGameActionPerformed
+
+    private void getManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getManualActionPerformed
+        File pdf = new File("./Manual/Manual.pdf");
+        try {
+            Desktop.getDesktop().open(pdf);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_getManualActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 import org.junit.jupiter.api.Test;
 
 class TestingNonHumanPlayer {
@@ -9,8 +11,8 @@ class TestingNonHumanPlayer {
 	@Test
 	void test() {
 		ArrayList<Player> players = new ArrayList<>();
-		Player p1 = new Player("1111", players);
-		Player p2 = new NonHumanPlayer("2222", players);
+		Player p1 = new Player("1111", players,new JLabel());
+		Player p2 = new NonHumanPlayer("2222", players, new JLabel());
 		players.add(p1);
 		players.add(p2);
 		ControlPanel panel = new ControlPanel(players);

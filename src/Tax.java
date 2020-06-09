@@ -1,4 +1,9 @@
 
+/*
+ * This  Class makes the player pay tax when he 
+ * lands on it.
+ */
+
 public class Tax extends BoardBlock{
 	private int tax;
 	

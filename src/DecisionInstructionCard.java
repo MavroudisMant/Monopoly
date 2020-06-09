@@ -7,17 +7,23 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+/*
+ * This Class holds the chance/order cards for the game.
+ * 
+ * Differences between the code and the SDD
+ * + drawnCards
+ * + initializeCards()
+ */ 
+
 public class DecisionInstructionCard extends BoardBlock{
 	
 	private Random rand = new Random();
 	private static ArrayList<OrderCard> orderCards;
 	private static ArrayList<OrderCard> drawnCards;
-	private ArrayList<Player> players;
 	
 	
-	public DecisionInstructionCard(String picturePath, ArrayList<Player> players) {
+	public DecisionInstructionCard(String picturePath) {
 		super(picturePath);
-		this.players = players;
 		initializeCards();
 		drawnCards = new ArrayList<>();
 	}
@@ -29,7 +35,7 @@ public class DecisionInstructionCard extends BoardBlock{
 		orderCards.remove(card);
 		JOptionPane.showMessageDialog(null, card.getText());
 		card.cardOrders(player);
-		if (orderCards.size()==0)
+		if (orderCards.size()==0) //If the cards finished restack them
 			orderCards = drawnCards;
 	}
 

@@ -8,6 +8,13 @@ import javax.swing.JOptionPane;
  * and open the template in the editor.
  */
 
+/*
+ * This Class lets the Player choose how to get out of Jail.
+ * 
+ * Differences between the code and the SDD
+ * + GetOutOfJail jailOptions
+ */
+
 /**
  *
  * @author mmant
@@ -158,6 +165,7 @@ public class GetOutOfJailGUI extends javax.swing.JDialog {
         else{
             ManageCards manage = new ManageCards(player.getCards(), player);
         }
+        parent.updateControlPanel();
     }//GEN-LAST:event_payButtonActionPerformed
 
     private void rollDiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollDiceButtonActionPerformed
@@ -166,6 +174,7 @@ public class GetOutOfJailGUI extends javax.swing.JDialog {
         die1.setText(Integer.toString(dice[0]));
         die2.setText(Integer.toString(dice[1]));
         if(dice[0]==dice[1]){
+            parent.updateControlPanel();
             dialog.dispose();
         }
         else if(player.getTimeInJail()<=2){
