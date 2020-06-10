@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /*This class holds the data and the actions of each player in the game.
-  It contains more classes than these that are presented in SDD which where crucial for the nonHumanPlayer and the GUI.
+  It contains more methods than these that are presented in SDD which where crucial for the nonHumanPlayer and the GUI.
   
 */
 
@@ -178,7 +178,13 @@ public class Player implements Serializable{
 		return players;
 	}
         
-       
+	/*
+	 * @param dice: the roll of the dice
+	 * 		  getPaid: IF getPaid ==True and the player passes the start he gets paid
+	 * 			 	   Else he does not get paid when passing the start
+	 * 
+	 * THis method moves the player and returns the new BoardBlock he landed on
+	 */
 	public BoardBlock movePlayer(int dice, boolean getPaid) {
 		int posbefore = position;
 		position = (position + dice) % BoardBlock.getTotalBlocks();
@@ -190,6 +196,13 @@ public class Player implements Serializable{
 		return block;
 	}
 	
+	/*
+	 * @param position: The position to move the player to
+	 * 		  getPaid: IF getPaid ==True and the player passes the start he gets paid
+	 * 			 	   Else he does not get paid when passing the start
+	 * 
+	 * This method move the player to a specific BoardBlock.
+	 */
 	public void movePlayerToBlock(int position, boolean getPaid) {
 		int moveFor;
 		if(position > this.getPosition()) {
@@ -254,16 +267,13 @@ public class Player implements Serializable{
             block.removePawn(players.get(currentPlayerIndex).getPawn());
         	for(PropertyCard c: players.get(currentPlayerIndex).getCards())
         	{
-        		//c.setOwner(null);
+        		c.setOwner(null);
         	}		
         	players.remove(currentPlayerIndex);
         	if(currentPlayerIndex == players.size())
         		currentPlayerIndex = 0;
         	currentPlayerIndex = this.endRoundAction();
-        	/*if(players.size() == 1)
-        	{
-        		get Winner
-        	}*/
+
         	return currentPlayerIndex;
         }
         
