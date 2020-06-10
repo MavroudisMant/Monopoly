@@ -35,7 +35,24 @@ public class PropertyCard extends BoardBlock implements Comparable<PropertyCard>
 	
         //Calculates the rent players that  land in this property card have to pay to the owner
 	public int calculateCharge() {
-		return(rent+houses*housePrice);
+		int charge = 0;
+		if(team.equals("Transport")) {
+			charge = rent * owner.countSameTeamCards(owner, this);
+		}
+		else if(team.equals("Star")) {
+			int[] dice = owner.rollDiceAction();
+			if(owner.countSameTeamCards(owner, this)==1) {
+				charge = (dice[0] + dice[1])*4;
+			}
+			else {
+				charge = (dice[0]+dice[1]) * 10;
+			}
+		}
+		else {
+			charge = rent+houses*housePrice;
+		}
+			
+		return charge;
 	}
 	
         //Add 1 house
