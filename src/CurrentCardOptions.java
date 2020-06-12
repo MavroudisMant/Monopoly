@@ -282,7 +282,7 @@ public class CurrentCardOptions extends javax.swing.JFrame {
     private void buyCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyCardActionPerformed
         // TODO add your handling code here:
         if(currentPlayer.buyCard(currentCard)){
-        JOptionPane.showMessageDialog(null, "Card bought sucessfully");
+        
         
         this.dispose();
         }
