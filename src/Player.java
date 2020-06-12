@@ -114,6 +114,7 @@ public class Player implements Serializable{
 			this.money -= card.getPrice(); 
 			propertyCards.add(card);
             card.setOwner(this);
+            JOptionPane.showMessageDialog(null, this.getName() + " bought " + card.getName());
 			return true;
 		}else {
 			JOptionPane.showMessageDialog(null, "You don't have enough money to buy this property");
@@ -159,7 +160,7 @@ public class Player implements Serializable{
                 	this.sellHouse(card);
                 }
                 this.propertyCards.remove(card);
-                
+                card.setOwner(player);
                 player.getPaid(-price);
                 player.getCards().add(card);
             }

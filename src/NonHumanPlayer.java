@@ -270,7 +270,7 @@ public class NonHumanPlayer extends Player {
 			int moneySpent = 0;
 			for(PropertyCard c: cardsToBuildOn) {
 				while(c.getHousePrice()+moneySpent<=moneyToSpend && c.hasSpaceForHouse()) {
-					JOptionPane.showMessageDialog(null, getName()+ " built a house");
+					JOptionPane.showMessageDialog(null, getName()+ " built a house on " + c.getName());
 					buildHouse(c);
 					moneySpent+=c.getHousePrice();
 				}
@@ -324,6 +324,7 @@ public class NonHumanPlayer extends Player {
 			else {
 				JOptionPane.showMessageDialog(null, "Player " + getName()+" stayed in jail");
 				panel.setCurrentPlayerIndex(jailOptions.passAction());
+				panel.updateControlPanel();
 			}
 		}
 		else if((getMoney()-50)<150 && getTimeInJail()>=3) {
@@ -465,15 +466,18 @@ public class NonHumanPlayer extends Player {
 		if(card.getOwner()==null) {
 			checkBuyCard(card);
 		}
-		else {
+		else if(!card.getOwner().equals(this)){
 			boolean canPay = payPlayer(card.getOwner(),card.calculateCharge());
 			if(!canPay) {
 				canPay = checkPayment(card.calculateCharge());
+				if(canPay)
+					payPlayer(card.getOwner(),card.calculateCharge());
+				else
+					forfeitAction();
 			}
 			if(canPay)
-				payPlayer(card.getOwner(),card.calculateCharge());
-			else
-				forfeitAction();
+				JOptionPane.showMessageDialog(null, getName()+ " paid rent to " + card.getOwner().getName());
+			
 		}
 	}
 }

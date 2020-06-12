@@ -288,7 +288,7 @@ public class ControlPanel extends javax.swing.JFrame {
                     .addComponent(forfeit)
                     .addComponent(endRound)
                     .addComponent(endGame))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         fileMenu.setText("File");
