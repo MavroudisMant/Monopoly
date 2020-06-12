@@ -25,6 +25,7 @@ public class ManageCards extends javax.swing.JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
+        
         DefaultListModel<String> listModel = new DefaultListModel();
         for (int i = 0; i < collection.size(); i++)
         {
@@ -185,6 +186,17 @@ public class ManageCards extends javax.swing.JFrame {
         else{
             mortgageButton.setText("Put in mortgage");
             
+        }
+        
+        if(card.getTeam().equals("Transport") || card.getTeam().equals("Star")){
+            buildButton.setEnabled(false);
+            removeButton.setEnabled(false);
+            
+        }
+        else{
+            buildButton.setEnabled(true);
+            removeButton.setEnabled(true);
+            housesLabel.setText("Houses built:"+ card.getHouses());
         }
         housesLabel.setText("Houses built:"+ card.getHouses());
         moneyLabel.setText( currentPlayer.getMoney() + "E");
