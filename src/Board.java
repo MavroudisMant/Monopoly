@@ -44,7 +44,7 @@ public class Board extends JFrame{
 				allTheBlocks[10] = new BoardBlock("Icons/jail.jpg");//JAIL
 				allTheBlocks[11] = new PropertyCard("Icons/pink1.png",140,10,100,"Pink",3, "Makemake","Icons/CurrentCardOptions/pink1.png");
 				allTheBlocks[12] = new PropertyCard("Icons/cassiopeia.jpg",150,0,0,"Star",2, "Cassiopeia","Icons/CurrentCardOptions/smallVert.jpg");
-				allTheBlocks[13] = new PropertyCard("Icons/pink2.png",140,10,100,"Pink",3, "Gonggong","Icons/CurrentCardOptions/pink2.jpg");
+				allTheBlocks[13] = new PropertyCard("Icons/pink2.png",140,10,100,"Pink",3, "Gonggong","Icons/CurrentCardOptions/pink2.png");
 				allTheBlocks[14] = new PropertyCard("Icons/pink3.png",160,12,100,"Pink",3, "Eris","Icons/CurrentCardOptions/pink3.png");
 				allTheBlocks[15] = new PropertyCard("Icons/transport2.jpg",200,25,0,"Transport",4, "Mir","Icons/CurrentCardOptions/transport2.jpg");
 				allTheBlocks[16] = new PropertyCard("Icons/orange1.jpg",180,14,100,"Orange",3, "Mercury","Icons/CurrentCardOptions/orange1.jpg");
@@ -61,7 +61,7 @@ public class Board extends JFrame{
 				allTheBlocks[25] = new PropertyCard("Icons/transport3.jpg",200,25,0,"Transport",4, "Tiangong","Icons/CurrentCardOptions/transport3.jpg");
 				allTheBlocks[26] = new PropertyCard("Icons/yellow1.jpg",260,22,150,"Yellow",3, "TRAPPIST-1g","Icons/CurrentCardOptions/yellow1.jpg");
 				allTheBlocks[27] = new PropertyCard("Icons/yellow2.jpg",260,22,150,"Yellow",3, "LHS 1140b","Icons/CurrentCardOptions/yellow2.jpg");
-				allTheBlocks[28] = new PropertyCard("Icons/orion.jpg",150,0,0,"Star",2, "Orion","Icons/CurrentCardOptions/brown1.jpg");
+				allTheBlocks[28] = new PropertyCard("Icons/orion.jpg",150,0,0,"Star",2, "Orion","Icons/CurrentCardOptions/orion.jpg");
 				allTheBlocks[29] = new PropertyCard("Icons/yellow3.jpg",280,24,150,"Yellow",3, "Kepler-1638b","Icons/CurrentCardOptions/yellow3.jpg");
 				
 				//Creation of the bottom side of the board

@@ -563,7 +563,7 @@ public class SelectPlayersUI extends javax.swing.JFrame {
         
         
         
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser("saved games");
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         players.add(new Player("", players, new JLabel()));
